@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.52277891.css",
+    "main.js": "/static/js/main.ee056607.js",
+    "static/media/LandingPageDesktop_image1.png": "/static/media/LandingPageDesktop_image1.e8c1fa6f8e99413dfc20.png",
+    "static/media/image1.png": "/static/media/image1.e8c1fa6f8e99413dfc20.png",
+    "static/media/LandingPageDesktop_manworkingonalaptopathisdesk.png": "/static/media/LandingPageDesktop_manworkingonalaptopathisdesk.3a6e95083ed0c536c6d7.png",
+    "static/media/pajamasprofile.svg": "/static/media/pajamasprofile.3e3e9e9451f58ed054cb6d2a8105bf88.svg",
+    "static/media/phexportFill1.svg": "/static/media/phexportFill1.67d3e44cbc50b4f4d96f681607e7d687.svg",
+    "static/media/phexportFill.svg": "/static/media/phexportFill.99ae6aa1bebba934a21a048c654f1b2c.svg",
+    "static/media/vector.svg": "/static/media/vector.c7491792ec5bdcd06f73a81903287087.svg",
+    "static/media/majesticonslogout.svg": "/static/media/majesticonslogout.d14be58e3ac4f3fb83619f6643e2b8d8.svg",
+    "index.html": "/index.html",
+    "static/media/rectangle1.svg": "/static/media/rectangle1.088f21bc1075f1e7a2b2aea717b865cf.svg",
+    "static/media/icbaselineNoteAlt1.svg": "/static/media/icbaselineNoteAlt1.6b787636848c8d5d725f8f6a563efc31.svg",
+    "static/media/icbaselineNoteAlt.svg": "/static/media/icbaselineNoteAlt.0c814f43909cd6ca1c0d905c4ccf70e0.svg",
+    "static/media/iconparkoutlinereturn.svg": "/static/media/iconparkoutlinereturn.6a21bbf8006e058a1607024e8e08fe37.svg",
+    "static/media/mdiaccountStudent.svg": "/static/media/mdiaccountStudent.7c9186b461cf5d069e446e76c56e060c.svg",
+    "static/media/backgroundPattern.svg": "/static/media/backgroundPattern.ac8cff3f3f5f13942ef267398229ebf0.svg",
+    "static/media/materialSymbolshome.svg": "/static/media/materialSymbolshome.9ae55e0ed36e7de555940142e757f3d5.svg",
+    "main.52277891.css.map": "/static/css/main.52277891.css.map",
+    "main.ee056607.js.map": "/static/js/main.ee056607.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.52277891.css",
+    "static/js/main.ee056607.js"
+  ]
+}
