@@ -68,7 +68,7 @@
   .labelSTUD{
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
     color: #264D75;
     padding: 10px;
   }
@@ -84,7 +84,12 @@
   .label4STUD{
     margin-top: 20px;
   }
-
+.input-boxes{
+  display: flex;
+    flex-direction: column;
+    width: 25%;
+    margin-left: -50px;
+}
   .input-boxesSTUD{
     display: flex;
     flex-direction: column;
@@ -172,6 +177,7 @@
   height: 325px; 
     background-color: white;
     overflow-y:scroll;
+    margin-right: 20px;
   }
   .styled-tableSTUD {
     border-collapse: collapse;

@@ -2,10 +2,11 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import "./ClearanceStatusSTUD.css"
 import image1 from "../assets/image1.png";
-// import icbaselineMenu from "../assets/icbaselineMenu.svg";
+import SideBar from "./SideBar";
 export default function ClearanceStatusSTUD() {
   return (
-    <div className="cs-pageSTUD">
+    <div> <SideBar/>
+          <div className="cs-pageSTUD">
     <div className="flex-containerSTUD">
    <img className="image-1STUD" src={image1} alt="" />
    <span className="titleSTUD">AAU Student Clearance Portal</span>
@@ -98,5 +99,7 @@ export default function ClearanceStatusSTUD() {
    </div>
  </div>
  </div>
+ </div>
+
   )
 }

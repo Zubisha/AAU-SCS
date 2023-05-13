@@ -6,9 +6,10 @@ import vector from "../assets/vector.svg";
 // import icbaselineMenu from "./assets/icbaselineMenu.svg";
 import rectangle1 from "../assets/rectangle1.svg";
 // import Header from "./header";
-// import SideBar from "./SideBar";
+import SideBar from "./SideBar";
 export default function HomeSTUD(){
     return(
+      <div><SideBar/>
         <div className="landing-pageSTUD">
         <div className="flex-containerSTUD">
           <img className="image-1STUD" src={image1} alt="" />
@@ -39,6 +40,7 @@ export default function HomeSTUD(){
             </span>
           </div>
         </div>
+      </div>
       </div>
     )
 }

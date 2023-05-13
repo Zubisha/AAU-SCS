@@ -12,6 +12,8 @@ export default props => {
       <div className='menu-list'>
         <div className="menu1"><img id="q" src={materialsymbolshomeoutlinerounded} style={{paddingRight:'5px'}}/><span><Link to="/HomeSTUD" id="p" style={{textDecoration:'none',color:'white',fontWeight:'bold'}}>Home</Link></span></div>
         <div className="menu1"><img id="q" src={Vector1} style={{paddingRight:'5px'}}/><span id="p" style={{textDecoration:'none',color:'white',fontWeight:'bold', width:'max-content'}}>Change Password</span></div>
+        <div className="menu1"><img id="q" src={materialsymbolshelp} style={{paddingRight:'10px'}}/><span id="p" style={{textDecoration:'none',color:'white',fontWeight:'bold'}}>Request Clearance</span></div>
+        <div className="menu1"><img id="q" src={materialsymbolshelp} style={{paddingRight:'10px'}}/><span id="p" style={{textDecoration:'none',color:'white',fontWeight:'bold'}}>Notifications</span></div>
         <div className="menu1"><img id="q" src={materialsymbolshelp} style={{paddingRight:'10px'}}/><span id="p" style={{textDecoration:'none',color:'white',fontWeight:'bold'}}>Help</span></div>
         <div className="menu1"><img id="q" src={uil_signout} style={{paddingRight:'5px'}}/><span><Link to="/SigninSTUD" id="p" style={{textDecoration:'none',color:'white',fontWeight:'bold'}}>Signout</Link></span></div>
       </div>

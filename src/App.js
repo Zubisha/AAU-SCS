@@ -17,7 +17,7 @@ import StudentDetailSTAFF from './Staff Pages/StudentDetailSTAFF'
 
 import SigninSTUD from "./Student Pages/SigninSTUD"
 import SignupSTUD from "./Student Pages/SignupSTUD"
-import Sidebar from './Student Pages/SideBar';
+// import Sidebar from './Student Pages/SideBar';
 import HomeSTUD from "./Student Pages/homeSTUD"
 import RequestClearanceSTUD from "./Student Pages/RequestClearanceSTUD"
 import ClearanceStatusSTUD from "./Student Pages/ClearanceStatusSTUD"
@@ -27,18 +27,18 @@ import SigninST from './SigninST'
 import SignupST from './SignupST'
 import { Routes , Route } from 'react-router-dom'
 export default function App() {
- const pchecker = () => {
+//  const pchecker = () => {
 
-  if( window.location.pathname === '/HomeSTUD' || 'RequestClearanceSTUD' || 'ClearanceStatusSTUD'){
-  return <Sidebar/>
- }
- }
+//   if( window.location.pathname === '/HomeSTUD' || 'RequestClearanceSTUD' || 'ClearanceStatusSTUD'){
+//   return <Sidebar/>
+//  }
+//  }
 
  
   
   return (
     <div>
-{pchecker}
+{/* {pchecker} */}
       {/* <Sidebar/> */}
       <Routes>
       {/* <Route path="/SignInREG" element={<Signin/>}/>
