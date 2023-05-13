@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.52277891.css",
-    "main.js": "/static/js/main.ee056607.js",
+    "main.css": "/static/css/main.3ecb59ef.css",
+    "main.js": "/static/js/main.8b90c458.js",
     "static/media/LandingPageDesktop_image1.png": "/static/media/LandingPageDesktop_image1.e8c1fa6f8e99413dfc20.png",
     "static/media/image1.png": "/static/media/image1.e8c1fa6f8e99413dfc20.png",
     "static/media/LandingPageDesktop_manworkingonalaptopathisdesk.png": "/static/media/LandingPageDesktop_manworkingonalaptopathisdesk.3a6e95083ed0c536c6d7.png",
@@ -18,11 +18,11 @@
     "static/media/mdiaccountStudent.svg": "/static/media/mdiaccountStudent.7c9186b461cf5d069e446e76c56e060c.svg",
     "static/media/backgroundPattern.svg": "/static/media/backgroundPattern.ac8cff3f3f5f13942ef267398229ebf0.svg",
     "static/media/materialSymbolshome.svg": "/static/media/materialSymbolshome.9ae55e0ed36e7de555940142e757f3d5.svg",
-    "main.52277891.css.map": "/static/css/main.52277891.css.map",
-    "main.ee056607.js.map": "/static/js/main.ee056607.js.map"
+    "main.3ecb59ef.css.map": "/static/css/main.3ecb59ef.css.map",
+    "main.8b90c458.js.map": "/static/js/main.8b90c458.js.map"
   },
   "entrypoints": [
-    "static/css/main.52277891.css",
-    "static/js/main.ee056607.js"
+    "static/css/main.3ecb59ef.css",
+    "static/js/main.8b90c458.js"
   ]
 }
