@@ -1,11 +1,35 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import "./RequestClearanceSTUD.css"
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import image1 from "../assets/image1.png";
 import Sidebar from './SideBar';
+import axios from "axios";
+// import { response } from "express";
 export default function RequestClearanceSTUD(){
+const [data,setData]= useState([])
+    useEffect(()=>{
+        axios.get('https://student-clearance-system.onrender.com/request/1')
+        .then(res=> setData(res.data.data))
+        .catch(err=>console.log(err))
+    },[])
+    // const studentData = ()=>{
+    //     axios
+    //     .post(
+    //         "https://student-clearance-system.onrender.com/studentLogin",
+                
+    //                 {studentid:1,password: "zuber"}
+                          
+                
+    //         )
+    //     .then(res=>{
+    //        console.log(res)
+    //     }).catch(err=>{
+    //        console.log(err)
+    //     })
+    // }
     return(
-        <div> <Sidebar/>
+        <div> 
+            <Sidebar/>
         <div className="rc-pageSTUD">
            
            <div className="flex-containerSTUD">
@@ -101,6 +125,15 @@ export default function RequestClearanceSTUD(){
 </table>
             </div>
         </div>
+        <div>
+          {/* <button onClick={studentData}>click</button>  */}
+          {data.map((item)=>(
+            <div>
+                <p style={{color:'black'}}>{item.reason}</p>
+            <p>{item.store}</p></div>
+           
+          ))}
+                  </div>
         <div className="flex-container-4STUD">
           <div className="rectangle-2STUD">
             <span className="num-2022-addis-ababaSTUD">

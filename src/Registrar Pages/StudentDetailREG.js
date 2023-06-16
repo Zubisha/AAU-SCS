@@ -15,7 +15,7 @@ export default function StudentDetail() {
       <div className="rectangle-1">
         <div className="rectangle-2">
           <span className="abebe-kebede">Abebe Kebede</span>
-          <span className="librarian">Librarian</span>
+          <span className="librarian">Registrar</span>
         </div>
         <div className="flex-container">
           <img className="material-symbolshome" src={materialSymbolshome} alt=""/>
@@ -55,6 +55,7 @@ export default function StudentDetail() {
       <div className="LDI">
            
             <div className="input-boxes">
+              
                <Link to="/RequestsREG"><button>Return</button></Link> 
             </div>
       </div>

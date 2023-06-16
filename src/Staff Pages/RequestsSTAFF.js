@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import "./RequestsSTAFF.css"
 import image1 from "../assets2/image1.png";
 import phexportFill from "../assets2/phexportFill.svg";
@@ -8,9 +8,42 @@ import mdiaccountStudent from "../assets2/mdiaccountStudent.svg";
 import materialSymbolshome from "../assets2/materialSymbolshome.svg";
 import pajamasprofile from "../assets2/pajamasprofile.svg";
 import StudentDetailSTAFF from "./StudentDetailSTAFF"
+import axios from "axios";
 import { Link } from 'react-router-dom';
 import { Routes , Route } from 'react-router-dom'
 export default function RequestsSTAFF() {
+
+  const [data,setData]= useState([])
+  const studentData=()=>{
+  useEffect(()=>{
+    const userData= localStorage.getItem("staffData")
+    const parsedData=JSON.parse(userData)
+
+ if(parsedData.loggedIn===1){
+
+    axios.post('https://student-clearance-system.onrender.com/staffrequests',
+    {userType:parsedData.data[0].userType},)
+      .then(res=> {console.log(res.data.data)})
+      .catch(err=>{console.log(err)})
+  }
+ 
+   
+ 
+ },[])
+}
+//   useEffect(()=>{
+//     axios.post('https://student-clearance-system.onrender.com/staffrequests')
+//     .then(res=> setData(res.data.data))
+//     .catch(err=>console.log(err))
+// },[])
+// const studentData=()=>{
+//   axios.post('https://student-clearance-system.onrender.com/staffrequests',
+//   {userType:'facultyAdvisor'},
+//   )
+//     .then(res=> {console.log(res.data.data)})
+//     .catch(err=>{console.log(err)})
+// }
+
   return (
     <div>
         <Routes>
@@ -35,7 +68,7 @@ export default function RequestsSTAFF() {
           <img className="phexport-fill" src={phexportFill} alt=""/>
           <span className="lend-items"><Link to="/LendItemsSTAFF" style={{textDecoration:'none', color:'white'}}>Lend Items</Link></span>
         </div> */}
-        <div className="flex-container-3">
+        <div className="flex-container-3">{studentData()}
           <img className="mdiaccount-student" src={mdiaccountStudent} alt="" />
           <span className="student-list"><Link to="/StudentListSTAFF" style={{textDecoration:'none', color:'white'}}>Student List</Link></span>
         </div>
@@ -75,7 +108,11 @@ export default function RequestsSTAFF() {
 </thead>
 <tbody>
  <tr>
-     <td>Someone Somebody</td>
+ {/* <td>{data.map((item)=>(
+         
+         <p>{item.librarychef}</p>
+       ))}
+       </td> */}
      <td>UGR/1234/12</td>
      <td>Information Science</td>
      <td>4</td>

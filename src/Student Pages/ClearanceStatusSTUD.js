@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState } from "react"
 import { Link } from 'react-router-dom';
 import "./ClearanceStatusSTUD.css"
 import image1 from "../assets/image1.png";
 import SideBar from "./SideBar";
+import axios from "axios";
 export default function ClearanceStatusSTUD() {
+  const [data,setData]= useState([])
+  
+    useEffect(()=>{
+        axios.get('https://student-clearance-system.onrender.com/request/1')
+        .then(res=> setData(res.data.data))
+        .catch(err=>console.log(err))
+    },[])
   return (
     <div> <SideBar/>
           <div className="cs-pageSTUD">
@@ -28,40 +36,59 @@ export default function ClearanceStatusSTUD() {
 </thead>
 <tbody>
  <tr>
+ 
      <td>Information Sciences</td>
      <td>Library Office</td>
      <td>Abebe Kebede</td>
      <td>21 Jun,2023</td>
-     <td style={{color:'lightgreen', fontWeight:'bold',fontSize:'14px'}}>Accepted</td>
+     <td>{data.map((item)=>(
+         
+            <p>{item.librarychef}</p>
+          ))}
+          </td>
  </tr>
  <tr className="active-rowSTUD">
      <td>Information Sciences</td>
      <td>Academic Dean's Office</td>
      <td>Chaltu Metach</td>
      <td>21 Jun,2023</td>
-     <td style={{color:'blue', fontWeight:'bold',fontSize:'14px'}}>Pending</td>
+     <td>{data.map((item)=>(
+         
+         <p>{item.academicdean}</p>
+       ))}
+       </td>
  </tr>
  <tr>
      <td>Information Sciences</td>
-     <td>Library Office</td>
+     <td>Faculty Advisor</td>
      <td>Abebe Kebede</td>
      <td>21 Jun,2023</td>
-     <td style={{color:'red', fontWeight:'bold',fontSize:'14px'}}>Rejected</td>
- </tr>
+     <td>{data.map((item)=>(
+         
+         <p>{item.facultyadvisor}</p>
+       ))}
+       </td> </tr>
  <tr className="active-rowSTUD">
      <td>Information Sciences</td>
-     <td>Academic Dean's Office</td>
+     <td>Sport Master</td>
      <td>Chaltu Metach</td>
      <td>21 Jun,2023</td>
-     <td style={{color:'blue', fontWeight:'bold',fontSize:'14px'}}>Pending</td>
+     <td>{data.map((item)=>(
+         
+         <p>{item.sportmaster}</p>
+       ))}
+       </td>
  </tr>
  <tr>
      <td>Information Sciences</td>
-     <td>Library Office</td>
+     <td>Store</td>
      <td>Abebe Kebede</td>
      <td>21 Jun,2023</td>
-     <td style={{color:'lightgreen', fontWeight:'bold',fontSize:'14px'}}>Accepted</td>
- </tr>
+     <td>{data.map((item)=>(
+         
+         <p>{item.store}</p>
+       ))}
+       </td> </tr>
  <tr className="active-rowSTUD">
      <td>Information Sciences</td>
      <td>Academic Dean's Office</td>
