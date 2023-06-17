@@ -32,7 +32,7 @@ export default function HomeSTUD(){
           </div>
           <img className="vectorSTUD" src={vector} alt="" />
         </div>
-        <div className="flex-container-4STUD">
+        <div className="flex-container-4STUD-HP">
           <img className="rectangle-1STUD"  src={rectangle1} alt="" />
           <div className="rectangle-2STUD">
             <span className="num-2022-addis-ababaSTUD">
