@@ -1,7 +1,7 @@
 .sign-up-page-desktop {
     color: #333;
     width: 100%;
-    height: 696px;
+    height: 100vh;
     background-color: #f0f0f0;
     flex-direction: column;
     justify-content: space-between;

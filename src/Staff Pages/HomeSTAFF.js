@@ -63,16 +63,16 @@ export default function HomeSTAFF() {
       </div>
       
       <div className='dashboard'>
-      <div className="rectangle-3">
+      <div className="rectangle-3ST">
           <img className="phexport-fill-1" src={phexportFill1}alt="" />
-          <div className="flex-container-8">
+          <div className="flex-container-8ST">
             <span className="no-of-items-lent">No. of Items Lent</span>
             <span className="num-54">54</span>
           </div>
         </div>
-        <div className="rectangle-3-1">
+        <div className="rectangle-3-1ST">
         <img className="icbaseline-note-alt-1" src={icbaselineNoteAlt1} alt=""/>
-        <div className="flex-container-9">
+        <div className="flex-container-9ST">
           <span className="no-of-pending-reques">No. of Pending Requests</span>
           <span className="num-21">21</span>
         </div>

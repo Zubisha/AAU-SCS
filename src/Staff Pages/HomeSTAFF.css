@@ -1,7 +1,7 @@
 .landing-page1 {
     color: #264d75;
     width: 100%;
-    height: 695px;
+    height: 100vh;
     background-color: #f0f0f0;
     flex-direction: row;
     justify-content: flex-start;
@@ -238,7 +238,7 @@
     font-size: 48px;
   }
   
-  .rectangle-3 {
+  .rectangle-3ST {
     /* width: 85%; */
     background-color: #fff;
     border: 3px solid #264d75;
@@ -261,7 +261,7 @@
     object-fit: cover;
   }
   
-  .flex-container-8 {
+  .flex-container-8ST {
     height: 60%;
     flex-direction: column;
     justify-content: space-between;
@@ -284,7 +284,7 @@
     font-size: 24px;
   }
   
-  .rectangle-3-1 {
+  .rectangle-3-1ST {
    /* width: 85%; */
    background-color: #fff;
    border: 3px solid #264d75;
@@ -308,7 +308,7 @@
     margin-left: 1px;
   }
   
-  .flex-container-9 {
+  .flex-container-9ST {
     height: 60%;
     flex-direction: column;
     justify-content: space-between;
@@ -336,5 +336,5 @@
     position: absolute;
     top: 400px;
     left: 380px;
-    width: 50%;
+    width: 55%;
   }

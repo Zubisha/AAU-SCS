@@ -8,29 +8,93 @@ import mdiaccountStudent from "../assets2/mdiaccountStudent.svg";
 import materialSymbolshome from "../assets2/materialSymbolshome.svg";
 import pajamasprofile from "../assets2/pajamasprofile.svg";
 import StudentDetailSTAFF from "./StudentDetailSTAFF"
+// import StudentClearanceTable from "./StudentTable"
 import axios from "axios";
 import { Link } from 'react-router-dom';
 import { Routes , Route } from 'react-router-dom'
 export default function RequestsSTAFF() {
 
-  const [data,setData]= useState([])
-  const studentData=()=>{
-  useEffect(()=>{
-    const userData= localStorage.getItem("staffData")
-    const parsedData=JSON.parse(userData)
 
- if(parsedData.loggedIn===1){
 
-    axios.post('https://student-clearance-system.onrender.com/staffrequests',
-    {userType:parsedData.data[0].userType},)
-      .then(res=> {console.log(res.data.data)})
-      .catch(err=>{console.log(err)})
-  }
+  // const [studentClearanceRequests, setStudentClearanceRequests] = useState([]);
+
+  // useEffect(() => {
+  //   const fetchStudentClearanceRequests = async () => {
+  //     const userType = localStorage.getItem('userType'); // Retrieving 'userType' from local storage
+  //     const userData= localStorage.getItem("staffData")
+  //     const parsedData=JSON.parse(userData)
+
+  //     if(parsedData.loggedIn===1){
+  //     try {
+  //       const response = await axios.post('https://student-clearance-system.onrender.com/staffrequests', {
+  //         userType: userType
+  //       });
+
+  //       // Assuming the response data is an array of student clearance requests
+  //       const studentClearanceRequests = response.data.data;
+
+  //       setStudentClearanceRequests(studentClearanceRequests);
+  //     } catch (error) {
+  //       // Handle any errors that occur during the API request
+  //       console.error('Error fetching student clearance requests:', error);
+  //     }
+  //   };
+  //   }
+  //   fetchStudentClearanceRequests();
+  // }, []);
+
+  // const handleAccept = async (request) => {
+  //   // Update the status of the request to "accept" in the backend
+  //   try {
+  //     const response = await axios.put('https://student-clearance-system.onrender.com/staffrequests', {
+  //       requestId: request.id,
+  //       status: 'accept'
+  //     });
+
+  //     // Assuming the response indicates a successful update
+  //     // You can handle the response as needed (e.g., show a success message)
+  //   } catch (error) {
+  //     // Handle any errors that occur during the API request
+  //     console.error('Error updating request status:', error);
+  //   }
+  // };
+
+  // const handleReject = async (request) => {
+  //   // Update the status of the request to "reject" in the backend
+  //   try {
+  //     const response = await axios.put('https://student-clearance-system.onrender.com/staffrequests', {
+  //       requestId: request.id,
+  //       status: 'reject'
+  //     });
+
+  //     // Assuming the response indicates a successful update
+  //     // You can handle the response as needed (e.g., show a success message)
+  //   } catch (error) {
+  //     // Handle any errors that occur during the API request
+  //     console.error('Error updating request status:', error);
+  //   }
+  // };
+
+
+
+//   const [data,setData]= useState([])
+//   const studentData=()=>{
+//   useEffect(()=>{
+//     const userData= localStorage.getItem("staffData")
+//     const parsedData=JSON.parse(userData)
+
+//  if(parsedData.loggedIn===1){
+
+//     axios.post('https://student-clearance-system.onrender.com/staffrequests',
+//     {userType:parsedData.data[0].userType},)
+//       .then(res=> {console.log(res.data.data)})
+//       .catch(err=>{console.log(err)})
+//   }
  
    
  
- },[])
-}
+//  },[])
+// }
 //   useEffect(()=>{
 //     axios.post('https://student-clearance-system.onrender.com/staffrequests')
 //     .then(res=> setData(res.data.data))
@@ -67,8 +131,8 @@ export default function RequestsSTAFF() {
         {/* <div className="flex-container-2">
           <img className="phexport-fill" src={phexportFill} alt=""/>
           <span className="lend-items"><Link to="/LendItemsSTAFF" style={{textDecoration:'none', color:'white'}}>Lend Items</Link></span>
-        </div> */}
-        <div className="flex-container-3">{studentData()}
+        </div> {studentData()}*/}
+        <div className="flex-container-3">
           <img className="mdiaccount-student" src={mdiaccountStudent} alt="" />
           <span className="student-list"><Link to="/StudentListSTAFF" style={{textDecoration:'none', color:'white'}}>Student List</Link></span>
         </div>
@@ -102,17 +166,34 @@ export default function RequestsSTAFF() {
      <th>Student ID</th>
      <th>Department</th>
      <th>Year</th>
-     <th>Items Lent</th>
+     <th>Semester</th>
      <th>Action</th>
  </tr>
 </thead>
 <tbody>
+
+{/* {studentClearanceRequests.map(request => (
+            <tr key={request.id}>
+               <td>{request.firstname}{' '}{request.lastname}</td>
+              <td>{request.studentid}</td>
+              <td>{request.department}</td>
+              <td>{request.year}</td>
+              <td>{request.semester}</td>
+
+              <td>
+                {request.status === 'pending' && ( 
+                  <>
+                    <button className='accept-btn' onClick={() => handleAccept(request)}>Accept</button>
+                    <button className='reject-btn' onClick={() => handleReject(request)}>Reject</button>
+                    <button className='view-btn'><Link style={{textDecoration:'none'}} to="/StudentDetailSTAFF">View</Link></button>
+                  </>
+                )} 
+              </td>
+            </tr>
+          ))} */}
+
  <tr>
- {/* <td>{data.map((item)=>(
-         
-         <p>{item.librarychef}</p>
-       ))}
-       </td> */}
+
      <td>UGR/1234/12</td>
      <td>Information Science</td>
      <td>4</td>
@@ -212,6 +293,7 @@ export default function RequestsSTAFF() {
 
      </div>
      </div>
+     {/* <StudentClearanceTable/> */}
       </div>
       </div>
     

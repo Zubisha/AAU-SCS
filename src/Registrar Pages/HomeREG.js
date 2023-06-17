@@ -56,7 +56,7 @@ export default function Home() {
       
       </div>
       
-      <div className='dashboard'>
+      <div className='dashboardREG'>
       <div className="rectangle-3">
           <img className="phexport-fill-1" src={phexportFill1}alt="" />
           <div className="flex-container-8">

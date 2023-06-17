@@ -6,12 +6,12 @@ import Sidebar from './SideBar';
 import axios from "axios";
 // import { response } from "express";
 export default function RequestClearanceSTUD(){
-const [data,setData]= useState([])
-    useEffect(()=>{
-        axios.get('https://student-clearance-system.onrender.com/request/1')
-        .then(res=> setData(res.data.data))
-        .catch(err=>console.log(err))
-    },[])
+// const [data,setData]= useState([])
+//     useEffect(()=>{
+//         axios.get('https://student-clearance-system.onrender.com/request/1')
+//         .then(res=> setData(res.data.data))
+//         .catch(err=>console.log(err))
+//     },[])
     // const studentData = ()=>{
     //     axios
     //     .post(
@@ -127,12 +127,12 @@ const [data,setData]= useState([])
         </div>
         <div>
           {/* <button onClick={studentData}>click</button>  */}
-          {data.map((item)=>(
+          {/* {data.map((item)=>(
             <div>
                 <p style={{color:'black'}}>{item.reason}</p>
             <p>{item.store}</p></div>
            
-          ))}
+          ))} */}
                   </div>
         <div className="flex-container-4STUD">
           <div className="rectangle-2STUD">

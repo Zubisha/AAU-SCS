@@ -5,13 +5,13 @@ import image1 from "../assets/image1.png";
 import SideBar from "./SideBar";
 import axios from "axios";
 export default function ClearanceStatusSTUD() {
-  const [data,setData]= useState([])
+  // const [data,setData]= useState([])
   
-    useEffect(()=>{
-        axios.get('https://student-clearance-system.onrender.com/request/1')
-        .then(res=> setData(res.data.data))
-        .catch(err=>console.log(err))
-    },[])
+  //   useEffect(()=>{
+  //       axios.get('https://student-clearance-system.onrender.com/request/1')
+  //       .then(res=> setData(res.data.data))
+  //       .catch(err=>console.log(err))
+  //   },[])
   return (
     <div> <SideBar/>
           <div className="cs-pageSTUD">
@@ -41,54 +41,56 @@ export default function ClearanceStatusSTUD() {
      <td>Library Office</td>
      <td>Abebe Kebede</td>
      <td>21 Jun,2023</td>
-     <td>{data.map((item)=>(
+     {/* <td>{data.map((item)=>(
          
             <p>{item.librarychef}</p>
           ))}
-          </td>
+          </td> */}
  </tr>
  <tr className="active-rowSTUD">
      <td>Information Sciences</td>
      <td>Academic Dean's Office</td>
      <td>Chaltu Metach</td>
      <td>21 Jun,2023</td>
-     <td>{data.map((item)=>(
+     {/* <td>{data.map((item)=>(
          
          <p>{item.academicdean}</p>
        ))}
-       </td>
+       </td> */}
  </tr>
  <tr>
      <td>Information Sciences</td>
      <td>Faculty Advisor</td>
      <td>Abebe Kebede</td>
      <td>21 Jun,2023</td>
-     <td>{data.map((item)=>(
+     {/* <td>{data.map((item)=>(
          
          <p>{item.facultyadvisor}</p>
        ))}
-       </td> </tr>
+       </td>  */}
+       </tr>
  <tr className="active-rowSTUD">
      <td>Information Sciences</td>
      <td>Sport Master</td>
      <td>Chaltu Metach</td>
      <td>21 Jun,2023</td>
-     <td>{data.map((item)=>(
+     {/* <td>{data.map((item)=>(
          
          <p>{item.sportmaster}</p>
        ))}
-       </td>
+       </td> */}
  </tr>
  <tr>
      <td>Information Sciences</td>
      <td>Store</td>
      <td>Abebe Kebede</td>
      <td>21 Jun,2023</td>
-     <td>{data.map((item)=>(
+     {/* <td>{data.map((item)=>(
          
          <p>{item.store}</p>
        ))}
-       </td> </tr>
+       </td> */}
+        </tr>
  <tr className="active-rowSTUD">
      <td>Information Sciences</td>
      <td>Academic Dean's Office</td>
