@@ -10,35 +10,102 @@ export default function SigninST(){
     const [userId,setUserId]=useState('')
     const [password,setPassword]=useState('')
 
-    useEffect(()=>{
-       const userData= localStorage.getItem("staffData")
-       const parsedData=JSON.parse(userData)
-    if(parsedData){
-        if(parsedData.loggedIn===1){
-            if(parsedData.data[0].usertype!=='registral'){
-                navigate("/HomeSTAFF")
-           }
-           else {
-                navigate("/HomeREG")
+    // useEffect(()=>{
+    //    const userData= localStorage.getItem("staffData")
+    //    const parsedData=JSON.parse(userData)
+    // if(parsedData){
+    //     if(parsedData.loggedIn===1){
+    //         navigate("/HomeSTAFF")
+    //        }
+    //  }
+    // },[])
+    // const login=()=>{
+    //     axios.post("https://aau-scs-service.onrender.com/staffLogin",{staffID:userId,password})
+    //     .then(res=>{
+    //         localStorage.setItem("staffData",JSON.stringify(res.data))
+    //         console.log(res.data)
+    //     //     if(res.data.data[0].usertype!=='registral'){
+                
+    //     //    }
+    //        navigate("/HomeSTAFF")
+        
+    //     //    else {
+    //     //         navigate("/HomeREG")
+    //     //    }
+    //         // console.log(res.data.data[0])
+    //     }).catch(err=>{
+    //         console.log(err)
+    //     })
+    // }
+
+    const [isRegistrar, setIsRegistrar] = useState(false);
+  const [isStaff, setIsStaff] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    if (isRegistrar) {
+      // Execute registrar function
+      registrarFunction();
+    }
+
+    if (isStaff) {
+      // Execute staff function
+      staffFunction();
+    }
+  };
+
+ useEffect(()=>{
+        const regData= localStorage.getItem("registrarData")
+        const parsedData=JSON.parse(regData)
+     if(parsedData){
+         if(parsedData.loggedIn===1){
+             navigate("/HomeREG")
             }
-           }
-     }
-    },[])
-    const login=()=>{
-        axios.post("https://student-clearance-system.onrender.com/staffLogin",{staffid:userId,password})
+      }
+     },[])
+
+     useEffect(()=>{
+        const userData= localStorage.getItem("staffData")
+        const parsedData=JSON.parse(userData)
+     if(parsedData){
+         if(parsedData.loggedIn===1){
+             navigate("/HomeSTAFF")
+            }
+      }
+     },[])
+
+
+  const registrarFunction = () => {
+
+   
+
+    axios.post("https://aau-scs-service.onrender.com/registrarLogin",{staffID:userId,password})
+    .then(res=>{
+        localStorage.setItem("registrarData",JSON.stringify(res.data))
+        console.log(res.data)
+       navigate("/HomeREG")
+        }).catch(err=>{
+        console.log(err)
+    })
+    console.log('Registrar function executed!');
+  };
+
+  const staffFunction = () => {
+
+   
+
+    axios.post("https://aau-scs-service.onrender.com/staffLogin",{staffID:userId,password})
         .then(res=>{
             localStorage.setItem("staffData",JSON.stringify(res.data))
-            if(res.data.data[0].usertype!=='registral'){
-                navigate("/HomeSTAFF")
-           }
-           else {
-                navigate("/HomeREG")
-           }
-            // console.log(res.data.data[0])
-        }).catch(err=>{
+            console.log(res.data)
+           navigate("/HomeSTAFF")
+            }).catch(err=>{
             console.log(err)
         })
-    }
+    console.log('Staff function executed!');
+  };
+
     return(
         <div className="sign-in-page-desktop">
             <div className="white-background">
@@ -56,7 +123,24 @@ export default function SigninST(){
               onChange={(e)=>{
               setPassword(e.target.value)
                }}/>     
-           <button className="sign-in-btn" onClick={login}>Signin </button>
+                <label>
+        <input
+          type="checkbox"
+          checked={isRegistrar}
+          onChange={() => setIsRegistrar(!isRegistrar)}
+        />
+        Registrar
+      </label>
+      <br />
+      <label>
+        <input
+          type="checkbox"
+          checked={isStaff}
+          onChange={() => setIsStaff(!isStaff)}
+        />
+        Staff
+      </label>
+           <button className="sign-in-btn" onClick={handleSubmit}>Signin </button>
              <span className="forgot-password">Forgot your password?</span>
            </div>
                <img className="background-pattern" src={backgroundPattern} alt=""/>

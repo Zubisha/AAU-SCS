@@ -16,64 +16,73 @@ export default function RequestsSTAFF() {
 
 
 
-  // const [studentClearanceRequests, setStudentClearanceRequests] = useState([]);
+  const [studentClearanceRequests, setStudentClearanceRequests] = useState([]);
 
-  // useEffect(() => {
-  //   const fetchStudentClearanceRequests = async () => {
-  //     const userType = localStorage.getItem('userType'); // Retrieving 'userType' from local storage
-  //     const userData= localStorage.getItem("staffData")
-  //     const parsedData=JSON.parse(userData)
+  useEffect(() => {
+    const fetchStudentClearanceRequests = async () => {
+      // const officeID = localStorage.getItem('officeid'); // Retrieving 'userType' from local storage
+      const userData= localStorage.getItem("staffData")
+      const parsedData=JSON.parse(userData)
 
-  //     if(parsedData.loggedIn===1){
-  //     try {
-  //       const response = await axios.post('https://student-clearance-system.onrender.com/staffrequests', {
-  //         userType: userType
-  //       });
+      if(parsedData.loggedIn===1){
+      try {
+        const response = await axios.post('https://aau-scs-service.onrender.com/staffrequests', {
+          officeID: parsedData.data[0].officeid
+        });
+console.log(parsedData.data[0].officeid)
+        // Assuming the response data is an array of student clearance requests
+        const studentClearanceRequests = response.data.data;
 
-  //       // Assuming the response data is an array of student clearance requests
-  //       const studentClearanceRequests = response.data.data;
+        setStudentClearanceRequests(studentClearanceRequests);
+      } catch (error) {
+        // Handle any errors that occur during the API request
+        console.error('Error fetching student clearance requests:', error);
+      }
+    };
+    }
+    fetchStudentClearanceRequests();
+  }, []);
 
-  //       setStudentClearanceRequests(studentClearanceRequests);
-  //     } catch (error) {
-  //       // Handle any errors that occur during the API request
-  //       console.error('Error fetching student clearance requests:', error);
-  //     }
-  //   };
-  //   }
-  //   fetchStudentClearanceRequests();
-  // }, []);
+  const handleAccept = async (request) => {
+    // Update the status of the request to "accept" in the backend
+    const userData= localStorage.getItem("staffData")
+    const parsedData=JSON.parse(userData)
 
-  // const handleAccept = async (request) => {
-  //   // Update the status of the request to "accept" in the backend
-  //   try {
-  //     const response = await axios.put('https://student-clearance-system.onrender.com/staffrequests', {
-  //       requestId: request.id,
-  //       status: 'accept'
-  //     });
+    try {
+      const response = await axios.patch('https://aau-scs-service.onrender.com/staffrequests', {
+              status: 'Approved',
+               officeID: parsedData.data[0].officeid,
+         studentID: request.id
+       
+            });
+            console.log(response.data)
+console.log('status updated')
+      // Assuming the response indicates a successful update
+      // You can handle the response as needed (e.g., show a success message)
+    } catch (error) {
+      // Handle any errors that occur during the API request
+      console.error('Error updating request status:', error);
+    }
+  };
 
-  //     // Assuming the response indicates a successful update
-  //     // You can handle the response as needed (e.g., show a success message)
-  //   } catch (error) {
-  //     // Handle any errors that occur during the API request
-  //     console.error('Error updating request status:', error);
-  //   }
-  // };
+  const handleReject = async (request) => {
+    // Update the status of the request to "reject" in the backend
+    const userData= localStorage.getItem("staffData")
+    const parsedData=JSON.parse(userData)
+    try {
+      const response = await axios.put('https://aau-scs-service.onrender.com/staffrequests', {
+        status: 'Denied',
+        officeID: parsedData.data[0].officeid,
+  studentID: request.id
+      });
 
-  // const handleReject = async (request) => {
-  //   // Update the status of the request to "reject" in the backend
-  //   try {
-  //     const response = await axios.put('https://student-clearance-system.onrender.com/staffrequests', {
-  //       requestId: request.id,
-  //       status: 'reject'
-  //     });
-
-  //     // Assuming the response indicates a successful update
-  //     // You can handle the response as needed (e.g., show a success message)
-  //   } catch (error) {
-  //     // Handle any errors that occur during the API request
-  //     console.error('Error updating request status:', error);
-  //   }
-  // };
+      // Assuming the response indicates a successful update
+      // You can handle the response as needed (e.g., show a success message)
+    } catch (error) {
+      // Handle any errors that occur during the API request
+      console.error('Error updating request status:', error);
+    }
+  };
 
 
 
@@ -166,32 +175,32 @@ export default function RequestsSTAFF() {
      <th>Student ID</th>
      <th>Department</th>
      <th>Year</th>
-     <th>Semester</th>
+     <th>Date</th>
      <th>Action</th>
  </tr>
 </thead>
 <tbody>
 
-{/* {studentClearanceRequests.map(request => (
+{studentClearanceRequests.map(request => (
             <tr key={request.id}>
-               <td>{request.firstname}{' '}{request.lastname}</td>
+               <td>{request.fullname}</td>
               <td>{request.studentid}</td>
-              <td>{request.department}</td>
-              <td>{request.year}</td>
-              <td>{request.semester}</td>
+              <td>{request.departmentname}</td>
+              <td>{request.academicyear}</td>
+              {/* <td>{request.semester}</td> */}
 
               <td>
-                {request.status === 'pending' && ( 
+                {/* {request.status === 'pending' && (  */}
                   <>
                     <button className='accept-btn' onClick={() => handleAccept(request)}>Accept</button>
                     <button className='reject-btn' onClick={() => handleReject(request)}>Reject</button>
                     <button className='view-btn'><Link style={{textDecoration:'none'}} to="/StudentDetailSTAFF">View</Link></button>
                   </>
-                )} 
+                {/* )}  */}
               </td>
             </tr>
-          ))} */}
-
+          ))}
+{/* 
  <tr>
 
      <td>UGR/1234/12</td>
@@ -287,7 +296,7 @@ export default function RequestsSTAFF() {
        <button className='reject-btn'>Reject</button>
        <button className='view-btn'><Link to="/StudentDetailSTAFF">View</Link></button></div>
        </td>
- </tr>
+ </tr> */}
 </tbody>
 </table>
 

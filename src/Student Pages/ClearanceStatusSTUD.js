@@ -12,6 +12,35 @@ export default function ClearanceStatusSTUD() {
   //       .then(res=> setData(res.data.data))
   //       .catch(err=>console.log(err))
   //   },[])
+
+
+  const [studentClearanceRequests, setStudentClearanceRequests] = useState([]);
+
+  useEffect(() => {
+    const fetchStudentClearanceRequests = async () => {
+      // const officeID = localStorage.getItem('officeid'); // Retrieving 'userType' from local storage
+      const userData= localStorage.getItem("studentData")
+      const parsedData=JSON.parse(userData)
+
+      if(parsedData.loggedIn===1){
+      try {
+        const response = await axios.post('https://aau-scs-service.onrender.com/fetchrequests', {
+          studentID: parsedData.data[0].studentid
+        });
+console.log(parsedData.data[0].studentid)
+        // Assuming the response data is an array of student clearance requests
+        const studentClearanceRequests = response.data.data;
+
+        setStudentClearanceRequests(studentClearanceRequests);
+      } catch (error) {
+        // Handle any errors that occur during the API request
+        console.error('Error fetching student clearance requests:', error);
+      }
+    };
+    }
+    fetchStudentClearanceRequests();
+  }, []);
+
   return (
     <div> <SideBar/>
           <div className="cs-pageSTUD">
@@ -35,7 +64,22 @@ export default function ClearanceStatusSTUD() {
  </tr>
 </thead>
 <tbody>
- <tr>
+{studentClearanceRequests.map(request => (
+            <tr key={request.id}>
+ <td>{request.departmentname}</td>
+ <td>{request.officename}</td>
+
+               <td>{request.fullname}</td>
+              <td>{request.date}</td>
+              {/* <td>{request.reason}</td>
+
+              <td>{request.clearingyear}</td> */}
+              <td>{request.status}</td>
+
+             
+            </tr>
+          ))}
+ {/* <tr>
  
      <td>Information Sciences</td>
      <td>Library Office</td>
@@ -45,7 +89,7 @@ export default function ClearanceStatusSTUD() {
          
             <p>{item.librarychef}</p>
           ))}
-          </td> */}
+          </td> 
  </tr>
  <tr className="active-rowSTUD">
      <td>Information Sciences</td>
@@ -56,7 +100,7 @@ export default function ClearanceStatusSTUD() {
          
          <p>{item.academicdean}</p>
        ))}
-       </td> */}
+       </td> 
  </tr>
  <tr>
      <td>Information Sciences</td>
@@ -67,7 +111,7 @@ export default function ClearanceStatusSTUD() {
          
          <p>{item.facultyadvisor}</p>
        ))}
-       </td>  */}
+       </td>  
        </tr>
  <tr className="active-rowSTUD">
      <td>Information Sciences</td>
@@ -78,7 +122,7 @@ export default function ClearanceStatusSTUD() {
          
          <p>{item.sportmaster}</p>
        ))}
-       </td> */}
+       </td> 
  </tr>
  <tr>
      <td>Information Sciences</td>
@@ -89,7 +133,7 @@ export default function ClearanceStatusSTUD() {
          
          <p>{item.store}</p>
        ))}
-       </td> */}
+       </td> 
         </tr>
  <tr className="active-rowSTUD">
      <td>Information Sciences</td>
@@ -111,7 +155,7 @@ export default function ClearanceStatusSTUD() {
      <td>Chaltu Metach</td>
      <td>21 Jun,2023</td>
      <td style={{color:'blue', fontWeight:'bold',fontSize:'14px'}}>Pending</td>
- </tr>
+ </tr> */}
 </tbody>
 </table>
 

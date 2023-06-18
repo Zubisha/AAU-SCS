@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState, useRef} from 'react'
 import "./StudentListSTAFF.css"
 import image1 from "../assets2/image1.png";
 import phexportFill from "../assets2/phexportFill.svg";
@@ -8,7 +8,64 @@ import mdiaccountStudent from "../assets2/mdiaccountStudent.svg";
 import materialSymbolshome from "../assets2/materialSymbolshome.svg";
 import pajamasprofile from "../assets2/pajamasprofile.svg";
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 export default function StudentListSTAFF() {
+
+  
+const academicYear = useRef()
+const departmentName = useRef()
+
+  // const [academicYear, setAcademicYear] = useState('');
+  // const [departmentName, setDepartment] = useState('');
+  const [fetchedData, setFetchedData] = useState([]);
+  const search = () => {
+    axios
+      .post(
+        "https://aau-scs-service.onrender.com/studentsList",
+        {
+          departmentName: departmentName.current.value,
+          academicYear: academicYear.current.value,
+        },
+        // { headers: "application/json" }
+      )
+      .then((resp) => {
+        console.log(resp.data);
+        setFetchedData(resp.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+//   const handleAcademicYearChange = (e) => {
+//     setAcademicYear(e.target.value);
+//   };
+
+//   const handleDepartmentChange = (e) => {
+//     setDepartment(e.target.value);
+//   };
+
+//   const handleFetchData = () => {
+   
+      
+//     const departmentType = localStorage.getItem('staffData'); // Assuming you have stored the department type in localStorage
+// const parsedData=JSON.parse(departmentType)
+
+//     // Check if department type is available
+//     if (!parsedData) {
+//       console.log('Department type not found in localStorage');
+//       return;
+//     }
+
+//     axios
+//       .post('https://aau-scs-service.onrender.com/studentsList', { academicYear, departmentName})
+//       .then((response) => {
+//         setFetchedData(response.data);
+//       })
+//       .catch((error) => {
+//         console.error('Error fetching data:', error);
+//       });
+//   };
+
   return (
     <div>
          <div className="landing-page1"> 
@@ -52,23 +109,45 @@ export default function StudentListSTAFF() {
         </div>
        <div>
        <div className="title-cr"><span>Student List</span></div>
-      <div className="SLT">
+       <div className="pt-cont" style={{display:'flex',flexDirection:'column'}}>
+      <div className="SLTStaff">
             <div className="labels1">
                 <span id="2" >School/Department</span>
-                <input id="2" type="text" className="input-box1"/>
+                <input id="2" type="text" className="input-box1"
+                ref={departmentName}
+                  />
                 <span id="2" >Year</span>
-                <input id="2" type="text" className="input-box1"/>
-                <input type="button" value="Generate" className="rc-btn4"/>
-            </div>
-        
-                             
-              
-           
-      </div>
+                <input id="2" type="text" className="input-box1"
+             ref={academicYear}/>
+                <input type="button" value="Generate" className="rc-btn4"
+                onClick={search}
+                />
+               
+                
+            </div> </div>
+            { <div>
+                <thead style={{fontSize:'22px',backgroundColor:'white'}}>
+                           <th><td>Student ID</td><td>Student Name</td></th>
+                           </thead>
+                  {fetchedData.length > 0 &&
+                    fetchedData.map((data) => {
+                      return (
+                        <>
+                        <table style={{fontSize:'22px',backgroundColor:'white'}}>
+                          <tr key={data.id}>
+                            <td>{data.studentid}</td><td>{data.fullname}</td></tr>
+                        </table>
+                         
+                        </>
+                      );
+                    })}
+                </div>            
+}
+      
      </div>
       </div>
       </div>
-     
+     </div>
     
     </div>
     </div>

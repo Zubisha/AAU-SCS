@@ -10,7 +10,10 @@ import materialSymbolshome from "../assets2/materialSymbolshome.svg";
 import pajamasprofile from "../assets2/pajamasprofile.svg";
 import phexportFill1 from "../assets2/phexportFill1.svg";
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 export default function Home() {
+  const navigate=useNavigate()
   return (
     <div>
         <div className="landing-page1"> 
@@ -41,7 +44,11 @@ export default function Home() {
         </div>
         <div className="flex-container-5">
           <img className="majesticonslogout" src={majesticonslogout} alt=""/>
-          <span className="logout"><Link to="/SignInST" style={{textDecoration:'none', color:'white'}}>Logout</Link></span>
+          {/* <span className="logout"><Link to="/SignInST" style={{textDecoration:'none', color:'white'}}>Logout</Link></span> */}
+          <span className="logout"  onClick={()=>{
+            localStorage.removeItem('registrarData')
+           navigate("/SignInST")
+          }} ><span  style={{textDecoration:'none', color:'white'}}>Logout</span></span>
         </div>
       </div>
       <div className="flex-container-6">

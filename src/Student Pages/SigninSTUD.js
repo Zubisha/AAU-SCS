@@ -26,7 +26,7 @@ export default function SigninSTUD(){
      
      },[])
      const login=()=>{
-         axios.post("https://student-clearance-system.onrender.com/studentLogin",{studentid:userId,password})
+         axios.post("https://aau-scs-service.onrender.com/studentLogin",{studentID:userId,password})
          .then(res=>{
              localStorage.setItem("studentData",JSON.stringify(res.data))
             //  if(res.data.data[0].usertype!=='registral'){
@@ -35,7 +35,10 @@ export default function SigninSTUD(){
             // else {
             //      navigate("/HomeREG")
             // }
+            if(res.data!=="incorrect username or password"){
             navigate('/HomeSTUD')
+        }
+
          }).catch(err=>{
              console.log(err)
          })
@@ -59,7 +62,7 @@ export default function SigninSTUD(){
              {/* <input type="button" className="sign-in-btn" value="Signin"/>    */}
              <span className="forgot-passwordSTUD">Forgot your password?</span>
         </div>
-        <span className="new-accountSTUD">Don't have an account?<a href="#">Signup</a></span>
+        {/* <span className="new-accountSTUD">Don't have an account?<a href="#">Signup</a></span> */}
         <img className="background-patternSTUD" src={backgroundPattern} alt=""/>
         </div>
     );
