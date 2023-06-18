@@ -70,10 +70,10 @@ console.log('status updated')
     const userData= localStorage.getItem("staffData")
     const parsedData=JSON.parse(userData)
     try {
-      const response = await axios.put('https://aau-scs-service.onrender.com/staffrequests', {
+      const response = await axios.patch('https://aau-scs-service.onrender.com/staffrequests', {
         status: 'Denied',
         officeID: parsedData.data[0].officeid,
-  studentID: request.id
+        studentID: request.id
       });
 
       // Assuming the response indicates a successful update
