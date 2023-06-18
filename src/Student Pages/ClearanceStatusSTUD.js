@@ -30,7 +30,7 @@ export default function ClearanceStatusSTUD() {
 console.log(parsedData.data[0].studentid)
         // Assuming the response data is an array of student clearance requests
         const studentClearanceRequests = response.data.data;
-
+console.log(response.data.data)
         setStudentClearanceRequests(studentClearanceRequests);
       } catch (error) {
         // Handle any errors that occur during the API request
@@ -58,7 +58,7 @@ console.log(parsedData.data[0].studentid)
  <tr>
      <th>Department</th>
      <th>Office</th>
-     <th>Officer</th>
+     {/* <th>Officer</th> */}
      <th>Date</th>
      <th>Status</th>
  </tr>
@@ -69,7 +69,7 @@ console.log(parsedData.data[0].studentid)
  <td>{request.departmentname}</td>
  <td>{request.officename}</td>
 
-               <td>{request.fullname}</td>
+               {/* <td>{request.fullname}</td> */}
               <td>{request.date}</td>
               {/* <td>{request.reason}</td>
 

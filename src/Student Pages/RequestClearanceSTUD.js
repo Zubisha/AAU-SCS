@@ -27,6 +27,76 @@ export default function RequestClearanceSTUD(){
     //        console.log(err)
     //     })
     // }
+
+    // const axios = require('axios');
+
+    // // Define the base URL for the API endpoint
+    // const baseURL = 'https://aau-scs-service.onrender.com/request';
+    
+    // // Define the data object with the request body
+    // const data = {
+    //   "officeID": 0,  // Placeholder value, will be updated in the loop
+    //   "studentID": "UGR/4362/12",
+    //   "date": "2023-06-18",
+    //   "reason": "Graduation",
+    //   "semester": 2,
+    //   "clearingYear": "2022/2023",
+    //   "status": "Pending"
+    // };
+    
+    // // Function to make the POST request
+    // const makeRequest = async (data) => {
+    //   try {
+    //     const response = await axios.post(baseURL, data);
+    //     console.log('Response:', response.data);
+    //   } catch (error) {
+    //     console.error('Error:', error.message);
+    //   }
+    // };
+    
+    // // Iterate through the office IDs
+    // for (let officeID = 1; officeID <= 9; officeID++) {
+    //   data.officeID = officeID; // Update the officeID in the data object
+    //   makeRequest(data);
+    // }
+
+    const [academicYear, setAcademicYear] = useState('');
+    const [semester, setSemester] = useState('');
+    const [lastClassAttended, setLastClassAttended] = useState('');
+    const [reason, setReason] = useState('');
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+  
+      // Get student ID from local storage
+      const userID = localStorage.getItem('studentData');
+      const parsedData=JSON.parse(userID)
+       const  studentID=parsedData.data[0].studentid
+      // Create an array of office IDs from 1 to 9
+      const officeIDs = Array.from({ length: 9 }, (_, i) => i + 1);
+  
+      // Iterate over each office ID and make a POST request
+      for (const officeID of officeIDs) {
+        const data = {
+          officeID,
+          studentID,
+        //   staffID: '', // Replace with the actual staff ID value
+          date: lastClassAttended,
+          reason,
+          semester,
+          clearingyear: academicYear,
+          status:"Pending"
+        };
+  
+        try {
+          await axios.post('https://aau-scs-service.onrender.com/request', data);
+          console.log('Request submitted successfully:', data);
+        } catch (error) {
+          console.error('Error submitting request:', error);
+        }
+      }
+    };
+  
     return(
         <div> 
             <Sidebar/>
@@ -48,28 +118,50 @@ export default function RequestClearanceSTUD(){
             <div className="input-boxes">
                 {/* <input type="text" className="input-box1STUD"/> */}
                 {/* <label for="dog-names">Choose a dog name:</label> */}
-<select name="academic-year" id="academic-year" className="input-box1STUD">
-    <option value="22/23fs">2022/2023</option>
-    <option value="22/23ss">2022/2023</option>
+<select name="academic-year" id="academic-year" className="input-box1STUD"
+ value={academicYear}
+ onChange={(e) => setAcademicYear(e.target.value)}
+>
+    <option value="2018/2019">2018/2019</option>
+    <option value="2019/2020">2019/2020</option>
+    <option value="2020/2021">2020/2021</option>
+    <option value="2021/2022">2021/2022</option>
 
 </select>
-<select name="academic-sem" id="academic-sem" className="input-box1STUD">
-    <option value="22/23fs">1st Semester</option>
-    <option value="22/23ss">2nd Semester</option>
+{/* <input
+          type="text"
+          value={academicYear}
+          onChange={(e) => setAcademicYear(e.target.value)}
+        /> */}
+<select name="academic-sem" id="academic-sem" className="input-box1STUD" 
+value={parseInt(semester)} onChange={(e) => setSemester(e.target.value)}>
+    <option value="1">1st Semester</option>
+    <option value="2">2nd Semester</option>
 
 </select>
-                <input type="date" className="input-box1STUD"/>
-                <textarea className="reasonSTUD" /> 
-                <input type="button" value="Request Clearance" className="rc-btn2STUD"/>
+                {/* <input type="date" className="input-box1STUD"/> */}
+                <input
+          type="date"
+          className="input-box1STUD"
+          value={lastClassAttended}
+          onChange={(e) => setLastClassAttended(e.target.value)}
+        />
+                {/* <textarea className="reasonSTUD" />  */}
+                <textarea
+                className="reasonSTUD"
+          value={reason}
+          onChange={(e) => setReason(e.target.value)}
+        />
+                <input type="button" value="Request Clearance" className="rc-btn2STUD" onClick={handleSubmit}/>
             </div>
             <div className="status-tableSTUD">
             <table className="styled-tableSTUD">
     <thead>
         <tr>
             <th><input type="checkbox" checked/></th>
-            <th>Department</th>
+            {/* <th>Department</th> */}
             <th>Office</th>
-            <th>Officer</th>
+            <th>Phone Number</th>
         </tr>
     </thead>
     <tbody>
