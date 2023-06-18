@@ -12,7 +12,7 @@ export default function SigninSTUD(){
         const userData= localStorage.getItem("studentData")
         const parsedData=JSON.parse(userData)
      if(parsedData){
-         if(parsedData.loggedIn===1){
+         if(parsedData.loggedIn===1 && parsedData.data.data!=="incorrect username or password"){
             //  if(parsedData.data[0].usertype!=='registral'){
             //      navigate("/HomeSTAFF")
             // }
@@ -20,6 +20,9 @@ export default function SigninSTUD(){
             //      navigate("/HomeREG")
             // }
             navigate('/HomeSTUD')
+            }
+            else{
+                window.alert('UserName or Password incorrect')
             }
      }
        
@@ -41,6 +44,7 @@ export default function SigninSTUD(){
 
          }).catch(err=>{
              console.log(err)
+             window.alert(err)
          })
      }
     return(

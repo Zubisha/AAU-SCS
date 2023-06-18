@@ -12,9 +12,11 @@ import StudentDetailSTAFF from "./StudentDetailSTAFF"
 import axios from "axios";
 import { Link } from 'react-router-dom';
 import { Routes , Route } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 export default function RequestsSTAFF() {
 
 
+  const navigate=useNavigate()
 
   const [studentClearanceRequests, setStudentClearanceRequests] = useState([]);
 
@@ -50,13 +52,14 @@ console.log(parsedData.data[0].officeid)
 
     try {
       const response = await axios.patch('https://aau-scs-service.onrender.com/staffrequests', {
-              status: 'Approved',
+              status: "Approved",
                officeID: parsedData.data[0].officeid,
-         studentID: request.id
+              studentID: request.studentid
        
             });
-            console.log(response.data)
-console.log('status updated')
+            console.log(response.data.data)
+console.log('status updated for '+ request.fullname)
+window.location.reload()
       // Assuming the response indicates a successful update
       // You can handle the response as needed (e.g., show a success message)
     } catch (error) {
@@ -71,9 +74,9 @@ console.log('status updated')
     const parsedData=JSON.parse(userData)
     try {
       const response = await axios.patch('https://aau-scs-service.onrender.com/staffrequests', {
-        status: 'Denied',
+        status: "Denied",
         officeID: parsedData.data[0].officeid,
-        studentID: request.id
+        studentID: request.studentid
       });
 
       // Assuming the response indicates a successful update
@@ -84,7 +87,38 @@ console.log('status updated')
     }
   };
 
-
+  const userData = localStorage.getItem('staffData')
+  const parsedData = JSON.parse(userData)
+  const staffName= parsedData.data[0].fullname
+  // let [userType,setUsertype]=useState(" ")
+  let setUsertype;
+  if (parsedData.data[0].officeid===1){
+    setUsertype="Faculty Advisor";
+  }
+  else if(parsedData.data[0].officeid===2){
+    setUsertype="Dean of Students";
+  }
+  else if(parsedData.data[0].officeid===3){
+    setUsertype="Library Chief";
+  }
+  else if(parsedData.data[0].officeid===4){
+    setUsertype="Bookstore Keeper";
+  }
+  else if(parsedData.data[0].officeid===5){
+    setUsertype="Sport Master";
+  }
+  else if(parsedData.data[0].officeid===6){
+    setUsertype="Academic Dean";
+  }
+  else if(parsedData.data[0].officeid===7){
+    setUsertype="Property & Store";
+  }
+  else if(parsedData.data[0].officeid===9){
+    setUsertype="Finance"
+  }
+  else if(parsedData.data[0].officeid===8){
+    setUsertype="S. Business Affairs"
+  }
 
 //   const [data,setData]= useState([])
 //   const studentData=()=>{
@@ -126,8 +160,8 @@ console.log('status updated')
          <div className="landing-page1"> 
       <div className="rectangle-1">
         <div className="rectangle-2">
-          <span className="abebe-kebede">Abebe Kebede</span>
-          <span className="librarian">Librarian</span>
+        <span className="abebe-kebede">{staffName}</span>
+          <span className="librarian">{setUsertype}</span>
         </div>
         <div className="flex-container">
           <img className="material-symbolshome" src={materialSymbolshome} alt=""/>
@@ -151,7 +185,11 @@ console.log('status updated')
         </div>
         <div className="flex-container-5">
           <img className="majesticonslogout" src={majesticonslogout} alt=""/>
-          <span className="logout"><Link to="/SignInST" style={{textDecoration:'none', color:'white'}}>Logout</Link></span>
+          <span className="logout"  onClick={()=>{
+            localStorage.removeItem('staffData')
+           navigate("/SignInST")
+          }} ><span  style={{textDecoration:'none', color:'white'}}>Logout</span></span>
+          {/* <span className="logout"><Link to="/SignInST" style={{textDecoration:'none', color:'white'}}>Logout</Link></span> */}
         </div>
       </div>
       <div style={{display:'flex',flexDirection:'column',marginTop:'-135px'}}>
@@ -175,7 +213,7 @@ console.log('status updated')
      <th>Student ID</th>
      <th>Department</th>
      <th>Year</th>
-     <th>Date</th>
+     {/* <th>Date</th> */}
      <th>Action</th>
  </tr>
 </thead>
@@ -194,7 +232,7 @@ console.log('status updated')
                   <>
                     <button className='accept-btn' onClick={() => handleAccept(request)}>Accept</button>
                     <button className='reject-btn' onClick={() => handleReject(request)}>Reject</button>
-                    <button className='view-btn'><Link style={{textDecoration:'none'}} to="/StudentDetailSTAFF">View</Link></button>
+                    {/* <button className='view-btn'><Link style={{textDecoration:'none'}} to="/StudentDetailSTAFF">View</Link></button> */}
                   </>
                 {/* )}  */}
               </td>

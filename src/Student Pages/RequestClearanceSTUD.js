@@ -96,7 +96,22 @@ export default function RequestClearanceSTUD(){
         }
       }
     };
-  
+
+    
+      const [offices, setOffices] = useState([]);
+    
+      useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await axios.get('https://aau-scs-service.onrender.com/officesToRequest');
+            setOffices(response.data.data);
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        };
+    
+        fetchData();
+      }, []);
     return(
         <div> 
             <Sidebar/>
@@ -158,14 +173,20 @@ value={parseInt(semester)} onChange={(e) => setSemester(e.target.value)}>
             <table className="styled-tableSTUD">
     <thead>
         <tr>
-            <th><input type="checkbox" checked/></th>
+            {/* <th><input type="checkbox" checked/></th> */}
             {/* <th>Department</th> */}
             <th>Office</th>
             <th>Phone Number</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
+    {offices.map((office) => (
+          <tr key={office.id}>
+            <td>{office.officename}</td>
+            <td>{office.phonenumber}</td>
+          </tr>
+        ))}
+        {/* <tr>
             <td><input type="checkbox"/></td>
             <td>Information Sciences</td>
             <td>Library Office</td>
@@ -212,7 +233,7 @@ value={parseInt(semester)} onChange={(e) => setSemester(e.target.value)}>
             <td>Information Sciences</td>
             <td>Academic Dean's Office</td>
             <td>Chaltu Metach</td>
-        </tr>
+        </tr> */}
     </tbody>
 </table>
             </div>

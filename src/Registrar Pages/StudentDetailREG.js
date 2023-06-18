@@ -9,12 +9,15 @@ import materialSymbolshome from "../assets2/materialSymbolshome.svg";
 import pajamasprofile from "../assets2/pajamasprofile.svg";
 import { Link } from 'react-router-dom';
 export default function StudentDetail() {
+  const userData= localStorage.getItem('registrarData')
+  const parseData=JSON.parse(userData)
+  const userName=parseData.data[0].fullname;
   return (
     <div>
          <div className="landing-page1"> 
       <div className="rectangle-1">
         <div className="rectangle-2">
-          <span className="abebe-kebede">Abebe Kebede</span>
+          <span className="abebe-kebede">{userName}</span>
           <span className="librarian">Registrar</span>
         </div>
         <div className="flex-container">

@@ -8,6 +8,9 @@ import rectangle1 from "../assets/rectangle1.svg";
 // import Header from "./header";
 import SideBar from "./SideBar";
 export default function HomeSTUD(){
+const userData = localStorage.getItem('studentData')
+const parsedData = JSON.parse(userData)
+const studentName= parsedData.data[0].fullname
     return(
       <div><SideBar/>
         <div className="landing-pageSTUD">
@@ -20,7 +23,7 @@ export default function HomeSTUD(){
         <div className="flex-container-1STUD">
           <div className="flex-container-2STUD">
             <span className="welcomeSTUD">Welcome</span>
-            <span className="student-nameSTUD">Zuber Shemsu</span>
+            <span className="student-nameSTUD">{studentName}</span>
             <div className="flex-container-3STUD">
               <button className="request-clearanceSTUD">
               <Link to="/RequestClearanceSTUD" style={{textDecoration:'none'}}> <span className="labelSTUD" style={{color:'white'}}> Request Clearance</span></Link> 

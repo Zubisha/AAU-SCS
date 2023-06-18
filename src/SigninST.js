@@ -87,6 +87,7 @@ export default function SigninST(){
        navigate("/HomeREG")
         }).catch(err=>{
         console.log(err)
+        window.alert(err)
     })
     console.log('Registrar function executed!');
   };
@@ -102,6 +103,7 @@ export default function SigninST(){
            navigate("/HomeSTAFF")
             }).catch(err=>{
             console.log(err)
+            window.alert(err)
         })
     console.log('Staff function executed!');
   };
@@ -123,23 +125,23 @@ export default function SigninST(){
               onChange={(e)=>{
               setPassword(e.target.value)
                }}/>     
-                <label>
-        <input
+             <div style={{display:'flex',flexDirection:'row',width:'100%',justifyContent:'center',marginLeft:'-30px'}}> 
+           <div style={{paddingLeft:'10px',paddingRight:'10px'}}><label>
+      <input
           type="checkbox"
           checked={isRegistrar}
           onChange={() => setIsRegistrar(!isRegistrar)}
         />
-        Registrar
-      </label>
-      <br />
-      <label>
+      <strong>Registrar</strong>  
+      </label></div>
+      <div style={{paddingLeft:'10px',paddingRight:'10px'}}><label>    
         <input
           type="checkbox"
           checked={isStaff}
           onChange={() => setIsStaff(!isStaff)}
         />
-        Staff
-      </label>
+       <strong>Staff</strong> 
+      </label></div> </div> 
            <button className="sign-in-btn" onClick={handleSubmit}>Signin </button>
              <span className="forgot-password">Forgot your password?</span>
            </div>

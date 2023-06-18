@@ -9,9 +9,10 @@ import materialSymbolshome from "../assets2/materialSymbolshome.svg";
 import pajamasprofile from "../assets2/pajamasprofile.svg";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 export default function StudentListSTAFF() {
 
-  
+  const navigate=useNavigate();
 const academicYear = useRef()
 const departmentName = useRef()
 
@@ -65,14 +66,45 @@ const departmentName = useRef()
 //         console.error('Error fetching data:', error);
 //       });
 //   };
-
+const userData = localStorage.getItem('staffData')
+  const parsedData = JSON.parse(userData)
+  const staffName= parsedData.data[0].fullname
+  // let [userType,setUsertype]=useState(" ")
+  let setUsertype;
+  if (parsedData.data[0].officeid===1){
+    setUsertype="Faculty Advisor";
+  }
+  else if(parsedData.data[0].officeid===2){
+    setUsertype="Dean of Students";
+  }
+  else if(parsedData.data[0].officeid===3){
+    setUsertype="Library Chief";
+  }
+  else if(parsedData.data[0].officeid===4){
+    setUsertype="Bookstore Keeper";
+  }
+  else if(parsedData.data[0].officeid===5){
+    setUsertype="Sport Master";
+  }
+  else if(parsedData.data[0].officeid===6){
+    setUsertype="Academic Dean";
+  }
+  else if(parsedData.data[0].officeid===7){
+    setUsertype="Property & Store";
+  }
+  else if(parsedData.data[0].officeid===9){
+    setUsertype="Finance"
+  }
+  else if(parsedData.data[0].officeid===8){
+    setUsertype="S. Business Affairs"
+  }
   return (
     <div>
          <div className="landing-page1"> 
       <div className="rectangle-1">
         <div className="rectangle-2">
-          <span className="abebe-kebede">Abebe Kebede</span>
-          <span className="librarian">Librarian</span>
+        <span className="abebe-kebede">{staffName}</span>
+          <span className="librarian">{setUsertype}</span>
         </div>
         <div className="flex-container">
           <img className="material-symbolshome" src={materialSymbolshome} alt=""/>
@@ -96,7 +128,11 @@ const departmentName = useRef()
         </div>
         <div className="flex-container-5">
           <img className="majesticonslogout" src={majesticonslogout} alt=""/>
-          <span className="logout"><Link to="/SignInST" style={{textDecoration:'none', color:'white'}}>Logout</Link></span>
+          <span className="logout"  onClick={()=>{
+            localStorage.removeItem('staffData')
+           navigate("/SignInST")
+          }} ><span  style={{textDecoration:'none', color:'white'}}>Logout</span></span>
+          {/* <span className="logout"><Link to="/SignInST" style={{textDecoration:'none', color:'white'}}>Logout</Link></span> */}
         </div>
       </div>
       <div style={{display:'flex',flexDirection:'column',marginTop:'-135px'}}>

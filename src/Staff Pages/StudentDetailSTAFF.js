@@ -8,8 +8,12 @@ import mdiaccountStudent from "../assets2/mdiaccountStudent.svg";
 import materialSymbolshome from "../assets2/materialSymbolshome.svg";
 import pajamasprofile from "../assets2/pajamasprofile.svg";
 import iconparkoutlinereturn from "../assets2/iconparkoutlinereturn.svg"
+import { useNavigate } from 'react-router-dom';
+
 import { Link } from 'react-router-dom';
 export default function StudentDetailSTAFF() {
+  const navigate=useNavigate()
+
   return (
     <div>
          <div className="landing-page1"> 
@@ -40,7 +44,11 @@ export default function StudentDetailSTAFF() {
         </div>
         <div className="flex-container-5">
           <img className="majesticonslogout" src={majesticonslogout} alt=""/>
-          <span className="logout"><Link to="/SignInST" style={{textDecoration:'none', color:'white'}}>Logout</Link></span>
+          <span className="logout"  onClick={()=>{
+            localStorage.removeItem('staffData')
+           navigate("/SignInST")
+          }} ><span  style={{textDecoration:'none', color:'white'}}>Logout</span></span>
+          {/* <span className="logout"><Link to="/SignInST" style={{textDecoration:'none', color:'white'}}>Logout</Link></span> */}
         </div>
       </div>
       <div id="pl" style={{display:'flex',flexDirection:'column'}}>

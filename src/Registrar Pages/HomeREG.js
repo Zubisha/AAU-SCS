@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import "./HomeREG.css"
 import image1 from "../assets2/image1.png";
 import phexportFill from "../assets2/phexportFill.svg";
@@ -10,17 +10,75 @@ import materialSymbolshome from "../assets2/materialSymbolshome.svg";
 import pajamasprofile from "../assets2/pajamasprofile.svg";
 import phexportFill1 from "../assets2/phexportFill1.svg";
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
-  const navigate=useNavigate()
+  const userData= localStorage.getItem('registrarData')
+  const parseData=JSON.parse(userData)
+  const userName=parseData.data[0].fullname;
+  const navigate=useNavigate(parseData)
+
+  const [pRequests, setPrequests] = useState([]);
+
+  useEffect(() => {
+    const fetchNoOfRequests = async () => {
+      // const officeID = localStorage.getItem('officeid'); // Retrieving 'userType' from local storage
+      const userData= localStorage.getItem("registrarData")
+      const parsedData=JSON.parse(userData)
+
+      if(parsedData.loggedIn===1){
+      try {
+        const response = await axios.post('https://aau-scs-service.onrender.com/numberOfPendingRequestsToRegistrar', {
+          departmentName: "Inforamtion Systems"
+        });
+// console.log(parsedData.data[0].officeid)
+        // Assuming the response data is an array of student clearance requests
+        const pRequests = response.data.data;
+
+        setPrequests(pRequests);
+      } catch (error) {
+        // Handle any errors that occur during the API request
+        console.error('Error fetching student clearance requests:', error);
+      }
+    };
+    }
+    fetchNoOfRequests();
+  }, []);
+
+  const [aRequests, setArequests] = useState([]);
+
+  useEffect(() => {
+    const fetchNoOfAcceptedRequests = async () => {
+      // const officeID = localStorage.getItem('officeid'); // Retrieving 'userType' from local storage
+      const userData= localStorage.getItem("registrarData")
+      const parsedData=JSON.parse(userData)
+
+      if(parsedData.loggedIn===1){
+      try {
+        const response = await axios.post('https://aau-scs-service.onrender.com/numberOfApprovedRequestsToRegistrar', {
+          departmentName: "Inforamtion Systems"        });
+// console.log(parsedData.data[0].officeid)
+        // Assuming the response data is an array of student clearance requests
+        const aRequests = response.data.data;
+
+        setArequests(aRequests);
+      } catch (error) {
+        // Handle any errors that occur during the API request
+        console.error('Error fetching student clearance requests:', error);
+      }
+    };
+    }
+    fetchNoOfAcceptedRequests();
+  }, []);
+
   return (
     <div>
         <div className="landing-page1"> 
       <div className="rectangle-1">
         <div className="rectangle-2">
-          <span className="abebe-kebede">Abebe Kebede</span>
-          <span className="librarian">Librarian</span>
+          <span className="abebe-kebede">{userName}</span>
+          <span className="librarian">Registrar</span>
         </div>
         <div className="flex-container">
           <img className="material-symbolshome" src={materialSymbolshome} alt=""/>
@@ -59,7 +117,7 @@ export default function Home() {
           </span>
         </div>
         <span className="welcome">Welcome,</span>
-        <span className="abebe-kebede-1">Abebe Kebede</span>
+        <span className="abebe-kebede-1">{userName}</span>
       
       </div>
       
@@ -67,15 +125,20 @@ export default function Home() {
       <div className="rectangle-3">
           <img className="phexport-fill-1" src={phexportFill1}alt="" />
           <div className="flex-container-8">
-            <span className="no-of-items-lent">No. of Approved Clearances</span>
-            <span className="num-54">54</span>
+             <span className="no-of-items-lent">No. of Pending Requests</span>
+            {/* <span className="num-54">54</span> */}
+            {pRequests.map(request => (
+              <span className="num-54">{request.student_count}</span>
+          ))}
           </div>
         </div>
         <div className="rectangle-3-1REG">
         <img className="icbaseline-note-alt-1REG" src={icbaselineNoteAlt1} alt=""/>
         <div className="flex-container-9REG">
-          <span className="no-of-pending-requesREG">No. of Pending Clearances</span>
-          <span className="num-21REG">21</span>
+        <span className="no-of-pending-reques">No. of Approved Requests</span>
+          {aRequests.map(request => (
+              <span className="num-21">{request.student_count}</span>
+          ))}
         </div>
       </div></div>
     </div>

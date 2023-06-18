@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import "./RequestsREG.css"
 import image1 from "../assets2/image1.png";
 import phexportFill from "../assets2/phexportFill.svg";
@@ -10,16 +10,50 @@ import pajamasprofile from "../assets2/pajamasprofile.svg";
 import StudentDetail from "./StudentDetailREG"
 import { Link } from 'react-router-dom';
 import { Routes , Route } from 'react-router-dom'
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 export default function Requests() {
+  const navigate=useNavigate()
+  const userData= localStorage.getItem('registrarData')
+  const parseData=JSON.parse(userData)
+  const userName=parseData.data[0].fullname;
+  const [studentClearanceRequests, setStudentClearanceRequests] = useState([]);
+
+  useEffect(() => {
+    const fetchStudentClearanceRequests = async () => {
+      // const officeID = localStorage.getItem('officeid'); // Retrieving 'userType' from local storage
+      const userData= localStorage.getItem("registrarData")
+      const parsedData=JSON.parse(userData)
+
+      if(parsedData.loggedIn===1){
+      try {
+        const response = await axios.post('https://aau-scs-service.onrender.com/staffrequests', {
+          // officeID: parsedData.data[0].officeid
+          studentID: "NSR/1659/12"
+        });
+console.log('student status view successful')
+        // Assuming the response data is an array of student clearance requests
+        const studentClearanceRequests = response.data.data;
+
+        setStudentClearanceRequests(studentClearanceRequests);
+      } catch (error) {
+        // Handle any errors that occur during the API request
+        console.error('Error fetching student clearance status:', error);
+      }
+    };
+    }
+    fetchStudentClearanceRequests();
+  }, []);
+
   return (
     <div>
      
          <div className="landing-page1"> 
       <div className="rectangle-1">
         <div className="rectangle-2">
-          <span className="abebe-kebede">Abebe Kebede</span>
-          <span className="librarian">Librarian</span>
+          <span className="abebe-kebede">{userName}</span>
+          <span className="librarian">Registrar</span>
         </div>
         <div className="flex-container">
           <img className="material-symbolshome" src={materialSymbolshome} alt=""/>
@@ -43,7 +77,11 @@ export default function Requests() {
         </div>
         <div className="flex-container-5">
           <img className="majesticonslogout" src={majesticonslogout} alt=""/>
-          <span className="logout"><Link to="/SignInST" style={{textDecoration:'none', color:'white'}}>Logout</Link></span>
+          <span className="logout"  onClick={()=>{
+            localStorage.removeItem('registrarData')
+           navigate("/SignInST")
+          }} ><span  style={{textDecoration:'none', color:'white'}}>Logout</span></span>
+          {/* <span className="logout"><Link to="/SignInST" style={{textDecoration:'none', color:'white'}}>Logout</Link></span> */}
         </div>
       </div>
       <div style={{display:'flex',flexDirection:'column',marginTop:'-135px'}}>
@@ -67,12 +105,22 @@ export default function Requests() {
      <th>Student ID</th>
      <th>Department</th>
      <th>Year</th>
-     <th>Items Lent</th>
-     <th>Action</th>
+     {/* <th>Items Lent</th>
+     <th>Action</th> */}
  </tr>
 </thead>
 <tbody>
- <tr>
+{studentClearanceRequests.map(request => (
+            <tr key={request.id}>
+               <td>{request.fullname}</td>
+              <td>{request.studentid}</td>
+              <td>{request.departmentname}</td>
+              <td>{request.academicyear}</td>
+              {/* <td>{request.semester}</td> */}
+
+                       </tr>
+          ))}
+ {/* <tr>
      <td>Someone Somebody</td>
      <td>UGR/1234/12</td>
      <td>Information Science</td>
@@ -162,7 +210,7 @@ export default function Requests() {
        <button className='reject-btn'>Reject</button>
        <button className='view-btn'><Link to="/StudentDetail">View</Link></button></div>
        </td>
- </tr>
+ </tr> */}
 </tbody>
 </table>
 
