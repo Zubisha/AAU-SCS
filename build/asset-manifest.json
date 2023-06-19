@@ -1,9 +1,9 @@
 {
-  "main.css": "/static/css/main.ee164c18.chunk.css",
-  "main.js": "/static/js/main.930fb351.chunk.js",
-  "main.js.map": "/static/js/main.930fb351.chunk.js.map",
-  "static/js/1.66206b23.chunk.js": "/static/js/1.66206b23.chunk.js",
-  "static/js/1.66206b23.chunk.js.map": "/static/js/1.66206b23.chunk.js.map",
+  "main.css": "/static/css/main.2d775654.chunk.css",
+  "main.js": "/static/js/main.655f7d41.chunk.js",
+  "main.js.map": "/static/js/main.655f7d41.chunk.js.map",
+  "static/js/1.69be86f7.chunk.js": "/static/js/1.69be86f7.chunk.js",
+  "static/js/1.69be86f7.chunk.js.map": "/static/js/1.69be86f7.chunk.js.map",
   "runtime~main.js": "/static/js/runtime~main.229c360f.js",
   "runtime~main.js.map": "/static/js/runtime~main.229c360f.js.map",
   "static/media/image1.png": "/static/media/image1.bbd428f5.png",
@@ -21,8 +21,8 @@
   "static/media/rectangle1.svg": "/static/media/rectangle1.b437e640.svg",
   "static/media/LandingPageDesktop_image1.png": "/static/media/LandingPageDesktop_image1.bbd428f5.png",
   "static/media/LandingPageDesktop_manworkingonalaptopathisdesk.png": "/static/media/LandingPageDesktop_manworkingonalaptopathisdesk.326659b6.png",
-  "static/css/main.ee164c18.chunk.css.map": "/static/css/main.ee164c18.chunk.css.map",
+  "static/css/main.2d775654.chunk.css.map": "/static/css/main.2d775654.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.0e46471969aa5ec1a49fd05b9fda3580.js": "/precache-manifest.0e46471969aa5ec1a49fd05b9fda3580.js",
+  "precache-manifest.d6a422662861d10e7ff5ee4d40b1eba0.js": "/precache-manifest.d6a422662861d10e7ff5ee4d40b1eba0.js",
   "service-worker.js": "/service-worker.js"
 }
