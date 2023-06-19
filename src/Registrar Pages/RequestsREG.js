@@ -18,33 +18,150 @@ export default function Requests() {
   const userData= localStorage.getItem('registrarData')
   const parseData=JSON.parse(userData)
   const userName=parseData.data[0].fullname;
-  const [studentClearanceRequests, setStudentClearanceRequests] = useState([]);
+//   const [deptName, setDeptName] = useState([]);
 
-  useEffect(() => {
-    const fetchStudentClearanceRequests = async () => {
-      // const officeID = localStorage.getItem('officeid'); // Retrieving 'userType' from local storage
-      const userData= localStorage.getItem("registrarData")
-      const parsedData=JSON.parse(userData)
+//   useEffect(() => {
+//     const fetchDepartmentName = async () => {
+//       // const officeID = localStorage.getItem('officeid'); // Retrieving 'userType' from local storage
+//       const userData= localStorage.getItem("registrarData")
+//       const parsedData=JSON.parse(userData)
+//       const deptId= parseData.data[0].departentid
 
-      if(parsedData.loggedIn===1){
-      try {
-        const response = await axios.post('https://aau-scs-service.onrender.com/staffrequests', {
-          // officeID: parsedData.data[0].officeid
-          studentID: "NSR/1659/12"
-        });
-console.log('student status view successful')
-        // Assuming the response data is an array of student clearance requests
-        const studentClearanceRequests = response.data.data;
+//       if(parsedData.loggedIn===1){
+//       try {
+//         const response = await axios.post('https://aau-scs-service.onrender.com/fetchDepartment', {
+//           // officeID: parsedData.data[0].officeid
+//           departentID: deptId
+//         });
+// console.log('dapartment name fetched successfully')
+//         // Assuming the response data is an array of student clearance requests
+//         const deptName = response.data.data;
 
-        setStudentClearanceRequests(studentClearanceRequests);
-      } catch (error) {
-        // Handle any errors that occur during the API request
-        console.error('Error fetching student clearance status:', error);
-      }
-    };
+//         setDeptName(deptName);
+//       } catch (error) {
+//         // Handle any errors that occur during the API request
+//         console.error('Error fetching student clearance status:', error);
+//       }
+//     };
+//     }
+//     fetchDepartmentName();
+//   }, []);
+
+const [deptName, setDeptName] = useState([]);
+
+useEffect(() => {
+  const fetchDepartmentName = async () => {
+    // const officeID = localStorage.getItem('officeid'); // Retrieving 'userType' from local storage
+    const userData= localStorage.getItem("registrarData")
+    const parsedData=JSON.parse(userData)
+    const deptId= parsedData.data[0].departmentid
+
+   
+      axios.post("https://aau-scs-service.onrender.com/fetchDepartment",{ departmentID: deptId})
+      .then(res=>{
+          localStorage.setItem("deptData",JSON.stringify(res.data))
+console.log('dapartment name stored successfully')
+      const deptName = res.data.data;
+      setDeptName(deptName);
+      }).catch(err=>{
+      console.log(err)
+     
+  })
+  };
+  
+  fetchDepartmentName();
+}, []);
+
+const [studentIDs, setStudentID]=useState([])
+useEffect(() => {
+  const fetchStudentID = async () => {
+    // const officeID = localStorage.getItem('officeid'); // Retrieving 'userType' from local storage
+    const departmentData= localStorage.getItem("deptData")
+    const parsedDataD=JSON.parse(departmentData)
+    const dptName= parsedDataD.data[0].departmentname
+console.log(dptName)
+   
+   
+      axios.post("https://aau-scs-service.onrender.com/listEligibleStudents",{ departmentName: "Information Systems"})
+      .then(res=>{
+          localStorage.setItem("e.students",JSON.stringify(res.data))
+console.log('eligible students name stored successfully')
+      const studentIDs = res.data;
+      setStudentID(studentIDs);
+      }).catch(err=>{
+      console.log(err)
+     
+  })
+  };
+  
+  fetchStudentID();
+}, []);
+
+const [requests, setRequests] = useState([]);
+
+useEffect(() => {
+  const fetchRequests = async () => {
+    // const officeID = localStorage.getItem('officeid'); // Retrieving 'userType' from local storage
+    const sdData= localStorage.getItem("e.students")
+    const parsedsData=JSON.parse(sdData)
+
+  
+    try {
+      const response = await axios.post('https://aau-scs-service.onrender.com/requestsToRegistrar', {
+        studentID: parsedsData.data[0].studentid
+      });
+console.log(parsedsData.data[0].studentid)
+      const requests = response.data.data;
+console.log(response.data.data)
+      setRequests(requests);
+    } catch (error) {
+      // Handle any errors that occur during the API request
+      console.error('Error fetching requests:', error);
     }
-    fetchStudentClearanceRequests();
-  }, []);
+  };
+  
+  fetchRequests();
+}, []);
+
+
+const handleAccept = async (request) => {
+  // Update the status of the request to "accept" in the backend
+  
+  try {
+    const response = await axios.patch('https://aau-scs-service.onrender.com/registrarRequestApproval', {
+            clearancestatus: "Approved",
+            studentID: request.studentid
+     
+          });
+          console.log(response.data.data)
+console.log('status updated for '+ request.fullname)
+window.alert('successful')
+    // Assuming the response indicates a successful update
+    // You can handle the response as needed (e.g., show a success message)
+  } catch (error) {
+    // Handle any errors that occur during the API request
+    console.error('Error updating request status:', error);
+  }
+};
+
+const handleReject = async (request) => {
+  // Update the status of the request to "reject" in the backend
+ 
+  try {
+    const response = await axios.patch('https://aau-scs-service.onrender.com/registrarRequestApproval', {
+      clearancestatus: "Denied",
+      studentID: request.studentid
+    });
+    console.log('status updated for '+ request.fullname)
+    window.alert('successful')
+    // Assuming the response indicates a successful update
+    // You can handle the response as needed (e.g., show a success message)
+  } catch (error) {
+    // Handle any errors that occur during the API request
+    console.error('Error updating request status:', error);
+  }
+};
+
 
   return (
     <div>
@@ -96,7 +213,7 @@ console.log('student status view successful')
         <span className="abebe-kebede-1">Abebe Kebede</span>
        */}
        <div>
-       <div className="title-cr"><span>Clearance Requests</span></div>
+       <div className="title-cr"><span>Approval Requests</span></div>
        <div className="status-table3"> 
      <table className="styled-table3">
 <thead>
@@ -105,19 +222,27 @@ console.log('student status view successful')
      <th>Student ID</th>
      <th>Department</th>
      <th>Year</th>
-     {/* <th>Items Lent</th>
-     <th>Action</th> */}
+     <th>Status</th>
+     <th>Action</th>
  </tr>
 </thead>
 <tbody>
-{studentClearanceRequests.map(request => (
+{  requests.map(request => (
             <tr key={request.id}>
                <td>{request.fullname}</td>
               <td>{request.studentid}</td>
               <td>{request.departmentname}</td>
               <td>{request.academicyear}</td>
-              {/* <td>{request.semester}</td> */}
-
+               <td>{request.clearancestatus}</td> 
+               <td>
+                {/* {request.status === 'pending' && (  */}
+                  <>
+                    <button className='accept-btn' onClick={() => handleAccept(request)}>Accept</button>
+                    <button className='reject-btn' onClick={() => handleReject(request)}>Reject</button>
+                    {/* <button className='view-btn'><Link style={{textDecoration:'none'}} to="/StudentDetailSTAFF">View</Link></button> */}
+                  </>
+                {/* )}  */}
+              </td>
                        </tr>
           ))}
  {/* <tr>

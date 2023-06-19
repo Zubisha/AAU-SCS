@@ -125,7 +125,7 @@ export default function RequestClearanceSTUD(){
         <div className="title-1STUD"><span>Clearance Form</span></div>
         <div className="clearance-formSTUD">
             <div className="labelSTUD">
-                <span id="l" className="label1STUD">Academic Year:</span>
+                <span id="l" className="label1STUD">Clearing Year:</span>
                 <span id="l" className="label2STUD">Semester:</span>
                 <span id="l" className="label3STUD">Last Date Class Attended:</span>
                 <span id="l" className="label4STUD">Reason(s):</span>

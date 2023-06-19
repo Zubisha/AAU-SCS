@@ -33,8 +33,9 @@ export default function RequestsSTAFF() {
         });
 console.log(parsedData.data[0].officeid)
         // Assuming the response data is an array of student clearance requests
-        const studentClearanceRequests = response.data.data;
-
+        const studentClearanceRequests = response.data.data.filter(request => request.clearancestatus!==("Approved"||"Denied"));
+       console.log(response.data.data.filter(request => request.clearancestatus!==("Approved"||"Denied")))
+        // const studentClearanceRequests = response.data.data
         setStudentClearanceRequests(studentClearanceRequests);
       } catch (error) {
         // Handle any errors that occur during the API request
@@ -59,6 +60,7 @@ console.log(parsedData.data[0].officeid)
             });
             console.log(response.data.data)
 console.log('status updated for '+ request.fullname)
+window.alert('Accepted Successfully!')
 window.location.reload()
       // Assuming the response indicates a successful update
       // You can handle the response as needed (e.g., show a success message)
@@ -78,7 +80,8 @@ window.location.reload()
         officeID: parsedData.data[0].officeid,
         studentID: request.studentid
       });
-
+      window.alert('Denied Successfully!')
+      window.location.reload()
       // Assuming the response indicates a successful update
       // You can handle the response as needed (e.g., show a success message)
     } catch (error) {

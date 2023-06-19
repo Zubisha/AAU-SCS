@@ -105,6 +105,8 @@ const departmentName = useRef()
                
                 
             </div> </div>
+            <div className="status-table6"> 
+     <table className="styled-table6">
             { <div>
                 <thead style={{fontSize:'22px',backgroundColor:'white'}}>
                            <th><td>Student ID</td><td>Student Name</td></th>
@@ -123,7 +125,8 @@ const departmentName = useRef()
                     })}
                 </div>            
 }
-      
+      </table>
+      </div>
      </div>
 
      </div>

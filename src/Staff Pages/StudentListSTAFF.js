@@ -161,6 +161,9 @@ const userData = localStorage.getItem('staffData')
                
                 
             </div> </div>
+         
+       <div className="status-table5"> 
+     <table className="styled-table5">
             { <div>
                 <thead style={{fontSize:'22px',backgroundColor:'white'}}>
                            <th><td>Student ID</td><td>Student Name</td></th>
@@ -179,7 +182,8 @@ const userData = localStorage.getItem('staffData')
                     })}
                 </div>            
 }
-      
+</table>
+</div>
      </div>
       </div>
       </div>
