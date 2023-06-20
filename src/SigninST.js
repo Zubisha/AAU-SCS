@@ -62,6 +62,9 @@ export default function SigninST(){
          if(parsedData.loggedIn===1){
              navigate("/HomeREG")
             }
+            // else{
+            //   window.alert('Please enter your crediantials to continue')
+            // }
       }
      },[])
 
@@ -71,6 +74,9 @@ export default function SigninST(){
      if(parsedData){
          if(parsedData.loggedIn===1){
              navigate("/HomeSTAFF")
+            }
+            else{
+              window.alert('Please enter your crediantials to continue')
             }
       }
      },[])
@@ -84,10 +90,19 @@ export default function SigninST(){
     .then(res=>{
         localStorage.setItem("registrarData",JSON.stringify(res.data))
         console.log(res.data)
-       navigate("/HomeREG")
+      //  navigate("/HomeREG")
+      const regData= localStorage.getItem("registrarData")
+      const parsedData=JSON.parse(regData)
+   if(parsedData){
+       if(parsedData.loggedIn===1){
+           navigate("/HomeREG")
+          } else{
+            window.alert('Incorrect Username or Password')
+          }
+    }
         }).catch(err=>{
         console.log(err)
-        window.alert(err)
+        window.alert('Incorrect Username or Password')
     })
     console.log('Registrar function executed!');
   };
@@ -100,12 +115,23 @@ export default function SigninST(){
         .then(res=>{
             localStorage.setItem("staffData",JSON.stringify(res.data))
             console.log(res.data)
-           navigate("/HomeSTAFF")
+          //  navigate("/HomeSTAFF")
+          const userData= localStorage.getItem("staffData")
+        const parsedData=JSON.parse(userData)
+     if(parsedData){
+         if(parsedData.loggedIn===1){
+             navigate("/HomeSTAFF")
+            }
+            else{
+              window.alert('Incorrect Username or Password')
+            }
+      }
+           console.log('Staff function executed!');
             }).catch(err=>{
             console.log(err)
-            window.alert(err)
+        window.alert('Incorrect Username or Password')
         })
-    console.log('Staff function executed!');
+    
   };
 
     return(

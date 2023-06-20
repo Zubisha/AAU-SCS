@@ -64,17 +64,20 @@ export default function RequestClearanceSTUD(){
     const [semester, setSemester] = useState('');
     const [lastClassAttended, setLastClassAttended] = useState('');
     const [reason, setReason] = useState('');
-  
+    const[loading,isLoading]=useState(false)
     const handleSubmit = async (e) => {
       e.preventDefault();
-  
+  if(!lastClassAttended||!reason){
+    alert('Please fill all the inputs');
+    return;
+  }
       // Get student ID from local storage
       const userID = localStorage.getItem('studentData');
       const parsedData=JSON.parse(userID)
        const  studentID=parsedData.data[0].studentid
       // Create an array of office IDs from 1 to 9
       const officeIDs = Array.from({ length: 9 }, (_, i) => i + 1);
-  
+  isLoading(true)
       // Iterate over each office ID and make a POST request
       for (const officeID of officeIDs) {
         const data = {
@@ -91,10 +94,16 @@ export default function RequestClearanceSTUD(){
         try {
           await axios.post('https://aau-scs-service.onrender.com/request', data);
           console.log('Request submitted successfully:', data);
-        } catch (error) {
+         
+        } 
+        catch (error) {
           console.error('Error submitting request:', error);
+         
         }
       }
+      isLoading(false)
+      window.alert('Request submitted successfully!');
+      window.location.reload();
     };
 
     
@@ -130,7 +139,7 @@ export default function RequestClearanceSTUD(){
                 <span id="l" className="label3STUD">Last Date Class Attended:</span>
                 <span id="l" className="label4STUD">Reason(s):</span>
             </div>
-            <div className="input-boxes">
+            <form className="input-boxes">
                 {/* <input type="text" className="input-box1STUD"/> */}
                 {/* <label for="dog-names">Choose a dog name:</label> */}
 <select name="academic-year" id="academic-year" className="input-box1STUD"
@@ -157,7 +166,7 @@ value={parseInt(semester)} onChange={(e) => setSemester(e.target.value)}>
                 {/* <input type="date" className="input-box1STUD"/> */}
                 <input
           type="date"
-          className="input-box1STUD"
+          className="input-box1STUD" required
           value={lastClassAttended}
           onChange={(e) => setLastClassAttended(e.target.value)}
         />
@@ -167,8 +176,12 @@ value={parseInt(semester)} onChange={(e) => setSemester(e.target.value)}>
           value={reason}
           onChange={(e) => setReason(e.target.value)}
         />
-                <input type="button" value="Request Clearance" className="rc-btn2STUD" onClick={handleSubmit}/>
-            </div>
+                <input type="submit" disabled={loading} 
+                value={loading? 'Submitting...': "Request Clearance"}
+                 className="rc-btn2STUD"
+                 onClick={handleSubmit}/>
+                
+            </form>
             <div className="status-tableSTUD">
             <table className="styled-tableSTUD">
     <thead>

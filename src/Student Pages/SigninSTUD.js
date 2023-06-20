@@ -12,7 +12,7 @@ export default function SigninSTUD(){
         const userData= localStorage.getItem("studentData")
         const parsedData=JSON.parse(userData)
      if(parsedData){
-         if(parsedData.loggedIn===1 && parsedData.data.data!=="incorrect username or password"){
+         if(parsedData.loggedIn===1){
             //  if(parsedData.data[0].usertype!=='registral'){
             //      navigate("/HomeSTAFF")
             // }
@@ -22,7 +22,7 @@ export default function SigninSTUD(){
             navigate('/HomeSTUD')
             }
             else{
-                window.alert('UserName or Password incorrect')
+                window.alert('Please enter you credentials to continue')
             }
      }
        
@@ -38,13 +38,23 @@ export default function SigninSTUD(){
             // else {
             //      navigate("/HomeREG")
             // }
-            if(res.data!=="incorrect username or password"){
-            navigate('/HomeSTUD')
+           // navigate('/HomeSTUD')
+           const userData= localStorage.getItem("studentData")
+           const parsedData=JSON.parse(userData)
+        if(parsedData){
+            if(parsedData.loggedIn===1){
+             
+               navigate('/HomeSTUD')
+               }
+               else{
+                   window.alert('Please enter you credentials to continue')
+               }
         }
+           
 
          }).catch(err=>{
              console.log(err)
-             window.alert(err)
+             window.alert('Could not log you in try again later')
          })
      }
     return(

@@ -129,13 +129,15 @@ const handleAccept = async (request) => {
   
   try {
     const response = await axios.patch('https://aau-scs-service.onrender.com/registrarRequestApproval', {
-            clearancestatus: "Approved",
+            clearanceStatus: "Approved",
             studentID: request.studentid
      
           });
           console.log(response.data.data)
 console.log('status updated for '+ request.fullname)
-window.alert('successful')
+window.alert(request.fullname +" has been fully cleared successfully!")
+window.location.reload()
+
     // Assuming the response indicates a successful update
     // You can handle the response as needed (e.g., show a success message)
   } catch (error) {
@@ -149,11 +151,12 @@ const handleReject = async (request) => {
  
   try {
     const response = await axios.patch('https://aau-scs-service.onrender.com/registrarRequestApproval', {
-      clearancestatus: "Denied",
+      clearanceStatus: "Denied",
       studentID: request.studentid
     });
     console.log('status updated for '+ request.fullname)
-    window.alert('successful')
+    window.alert(request.fullname +" has been rejected successfully!")
+    window.location.reload()
     // Assuming the response indicates a successful update
     // You can handle the response as needed (e.g., show a success message)
   } catch (error) {

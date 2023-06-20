@@ -70,7 +70,7 @@ console.log(response.data.data)
  <td>{request.officename}</td>
 
                {/* <td>{request.fullname}</td> */}
-              <td>{request.date}</td>
+              <td>{request.date.split('T')[0]}</td>
               {/* <td>{request.reason}</td>
 
               <td>{request.clearingyear}</td> */}
