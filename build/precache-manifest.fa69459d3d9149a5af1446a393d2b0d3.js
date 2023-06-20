@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "06cae3b36ba8da41b779",
-    "url": "/static/css/main.2d775654.chunk.css"
+    "revision": "982a4eed9504f0bc1321",
+    "url": "/static/css/main.811a29ec.chunk.css"
   },
   {
-    "revision": "06cae3b36ba8da41b779",
-    "url": "/static/js/main.06cae3b3.chunk.js"
+    "revision": "982a4eed9504f0bc1321",
+    "url": "/static/js/main.982a4eed.chunk.js"
   },
   {
     "revision": "69be86f70506c861297c",
@@ -76,7 +76,7 @@ self.__precacheManifest = [
     "url": "/static/media/LandingPageDesktop_manworkingonalaptopathisdesk.326659b6.png"
   },
   {
-    "revision": "f155c6c9ef89c2ec555aa67f9641715a",
+    "revision": "26a1a9e1f4b70270ae073d872f24f5c4",
     "url": "/index.html"
   }
 ];
