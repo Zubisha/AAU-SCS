@@ -47,7 +47,7 @@ export default function SigninSTUD(){
                navigate('/HomeSTUD')
                }
                else{
-                   window.alert('Please enter you credentials to continue')
+                   window.alert('Incorrect Username or Password')
                }
         }
            

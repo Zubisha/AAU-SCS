@@ -47,11 +47,10 @@ export default function Requests() {
 //     fetchDepartmentName();
 //   }, []);
 
-const [deptName, setDeptName] = useState([]);
+// const [deptName, setDeptName] = useState([]);
 
 useEffect(() => {
   const fetchDepartmentName = async () => {
-    // const officeID = localStorage.getItem('officeid'); // Retrieving 'userType' from local storage
     const userData= localStorage.getItem("registrarData")
     const parsedData=JSON.parse(userData)
     const deptId= parsedData.data[0].departmentid
@@ -60,9 +59,10 @@ useEffect(() => {
       axios.post("https://aau-scs-service.onrender.com/fetchDepartment",{ departmentID: deptId})
       .then(res=>{
           localStorage.setItem("deptData",JSON.stringify(res.data))
-console.log('dapartment name stored successfully')
-      const deptName = res.data.data;
-      setDeptName(deptName);
+console.log('dapartment id stored successfully')
+      //  deptName = res.data.departmentid;
+      // setDeptName(deptName);
+      // window.reload();
       }).catch(err=>{
       console.log(err)
      
@@ -72,22 +72,23 @@ console.log('dapartment name stored successfully')
   fetchDepartmentName();
 }, []);
 
-const [studentIDs, setStudentID]=useState([])
+// const [studentIDs, setStudentID]=useState([])
 useEffect(() => {
   const fetchStudentID = async () => {
     // const officeID = localStorage.getItem('officeid'); // Retrieving 'userType' from local storage
     const departmentData= localStorage.getItem("deptData")
-    const parsedDataD=JSON.parse(departmentData)
-    const dptName= parsedDataD.data[0].departmentname
+    const parsedData_D=JSON.parse(departmentData)
+    const dptName= parsedData_D.data[0].departmentname
 console.log(dptName)
    
    
-      axios.post("https://aau-scs-service.onrender.com/listEligibleStudents",{ departmentName: "Information Systems"})
+      axios.post("https://aau-scs-service.onrender.com/listEligibleStudents",{ departmentName: dptName})
       .then(res=>{
           localStorage.setItem("e.students",JSON.stringify(res.data))
 console.log('eligible students name stored successfully')
-      const studentIDs = res.data;
-      setStudentID(studentIDs);
+      // studentIDs = res.data.studentid;
+      // setStudentID(studentIDs);
+      // window.reload();
       }).catch(err=>{
       console.log(err)
      
@@ -96,31 +97,64 @@ console.log('eligible students name stored successfully')
   
   fetchStudentID();
 }, []);
+//---------
+// const [requests, setRequests] = useState([]);
 
-const [requests, setRequests] = useState([]);
+// useEffect(() => {
+//   const fetchRequests = async () => {
+//     // const officeID = localStorage.getItem('officeid'); // Retrieving 'userType' from local storage
+//     const sdData= localStorage.getItem("e.students")
+//     const parsedsData=JSON.parse(sdData)
+
+  
+//     try {
+//       const response = await axios.post('https://aau-scs-service.onrender.com/requestsToRegistrar', {
+//         studentID: parsedsData.data[0].studentid
+//       });
+// console.log(parsedsData.data[0].studentid)
+//       const requests = response.data.data;
+// console.log(response.data.data)
+// // window.location.reload()
+//       setRequests(requests);
+//     } catch (error) {
+//       // Handle any errors that occur during the API request
+//       console.error('Error fetching requests:', error);
+//     }
+//   };
+  
+//   fetchRequests();
+// }, []);
+//-----
+
+const [students, setStudents] = useState([]);
 
 useEffect(() => {
-  const fetchRequests = async () => {
-    // const officeID = localStorage.getItem('officeid'); // Retrieving 'userType' from local storage
-    const sdData= localStorage.getItem("e.students")
-    const parsedsData=JSON.parse(sdData)
+  const fetchStudentsData = async () => {
+    const storedData = localStorage.getItem('e.students');
+    const parsedData = JSON.parse(storedData);
 
-  
+    const studentIDs = parsedData.data.map(item => item.studentid);
+// console.log(studentIDs)
+    const requests = studentIDs.map(async (studentID) => {
+      const requestBody = { studentID };
+      const response = await axios.post('https://aau-scs-service.onrender.com/requestsToRegistrar', requestBody);
+          console.log(response.data.data)
+
+      return response.data.data;
+    });
+
     try {
-      const response = await axios.post('https://aau-scs-service.onrender.com/requestsToRegistrar', {
-        studentID: parsedsData.data[0].studentid
-      });
-console.log(parsedsData.data[0].studentid)
-      const requests = response.data.data;
-console.log(response.data.data)
-      setRequests(requests);
+      const studentsData = await Promise.all(requests);
+      const mergedStudents = studentsData.reduce((acc, curr)=>
+      acc.concat(curr),[])
+      console.log(mergedStudents)
+      setStudents(mergedStudents);
     } catch (error) {
-      // Handle any errors that occur during the API request
-      console.error('Error fetching requests:', error);
+      console.error('Error:', error);
     }
   };
-  
-  fetchRequests();
+
+  fetchStudentsData();
 }, []);
 
 
@@ -136,7 +170,7 @@ const handleAccept = async (request) => {
           console.log(response.data.data)
 console.log('status updated for '+ request.fullname)
 window.alert(request.fullname +" has been fully cleared successfully!")
-window.location.reload()
+// window.location.reload()
 
     // Assuming the response indicates a successful update
     // You can handle the response as needed (e.g., show a success message)
@@ -146,6 +180,8 @@ window.location.reload()
   }
 };
 
+
+
 const handleReject = async (request) => {
   // Update the status of the request to "reject" in the backend
  
@@ -154,6 +190,7 @@ const handleReject = async (request) => {
       clearanceStatus: "Denied",
       studentID: request.studentid
     });
+
     console.log('status updated for '+ request.fullname)
     window.alert(request.fullname +" has been rejected successfully!")
     window.location.reload()
@@ -199,6 +236,8 @@ const handleReject = async (request) => {
           <img className="majesticonslogout" src={majesticonslogout} alt=""/>
           <span className="logout"  onClick={()=>{
             localStorage.removeItem('registrarData')
+            localStorage.removeItem('e.students')
+            localStorage.removeItem('deptData')
            navigate("/SignInST")
           }} ><span  style={{textDecoration:'none', color:'white'}}>Logout</span></span>
           {/* <span className="logout"><Link to="/SignInST" style={{textDecoration:'none', color:'white'}}>Logout</Link></span> */}
@@ -230,21 +269,18 @@ const handleReject = async (request) => {
  </tr>
 </thead>
 <tbody>
-{  requests.map(request => (
-            <tr key={request.id}>
+{  students.map((request,index)=> (
+            <tr key={index}>
                <td>{request.fullname}</td>
               <td>{request.studentid}</td>
               <td>{request.departmentname}</td>
               <td>{request.academicyear}</td>
                <td>{request.clearancestatus}</td> 
                <td>
-                {/* {request.status === 'pending' && (  */}
                   <>
                     <button className='accept-btn' onClick={() => handleAccept(request)}>Accept</button>
                     <button className='reject-btn' onClick={() => handleReject(request)}>Reject</button>
-                    {/* <button className='view-btn'><Link style={{textDecoration:'none'}} to="/StudentDetailSTAFF">View</Link></button> */}
                   </>
-                {/* )}  */}
               </td>
                        </tr>
           ))}
