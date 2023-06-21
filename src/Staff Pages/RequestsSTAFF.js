@@ -33,8 +33,8 @@ export default function RequestsSTAFF() {
         });
 console.log(parsedData.data[0].officeid)
         // Assuming the response data is an array of student clearance requests
-        const studentClearanceRequests = response.data.data.filter(request => request.status!==("Approved"||"Denied"));
-       console.log(response.data.data.filter(request => request.status!==("Approved"||"Denied")))
+        const studentClearanceRequests = response.data.data.filter(request => request.status===("Pending"));
+       console.log(response.data.data.filter(request => request.status!==("Denied")))
         // const studentClearanceRequests = response.data.data
         setStudentClearanceRequests(studentClearanceRequests);
       } catch (error) {
@@ -46,12 +46,13 @@ console.log(parsedData.data[0].officeid)
     }
     fetchStudentClearanceRequests();
   }, []);
-
+const [aloader,setLoader]=useState(false)
   const handleAccept = async (request) => {
     // Update the status of the request to "accept" in the backend
+    setLoader(true)
+
     const userData= localStorage.getItem("staffData")
     const parsedData=JSON.parse(userData)
-
     try {
       const response = await axios.patch('https://aau-scs-service.onrender.com/staffrequests', {
               status: "Approved",
@@ -61,7 +62,8 @@ console.log(parsedData.data[0].officeid)
             });
             console.log(response.data.data)
 console.log('status updated for '+ request.fullname)
-window.alert('Accepted '+ request.fullname +"'s request successfully!")
+setLoader(false)
+// window.alert('Accepted '+ request.fullname +"'s request successfully!")
 window.location.reload()
       // Assuming the response indicates a successful update
       // You can handle the response as needed (e.g., show a success message)
@@ -72,18 +74,22 @@ window.location.reload()
 
     }
   };
+  const [rloader,rsetLoader]=useState(false)
 
   const handleReject = async (request) => {
     // Update the status of the request to "reject" in the backend
+    rsetLoader(true)
     const userData= localStorage.getItem("staffData")
     const parsedData=JSON.parse(userData)
+    
     try {
       const response = await axios.patch('https://aau-scs-service.onrender.com/staffrequests', {
         status: "Denied",
         officeID: parsedData.data[0].officeid,
         studentID: request.studentid
       });
-      window.alert('Denied '+ request.fullname +"'s request successfully!")
+      // window.alert('Denied '+ request.fullname +"'s request successfully!")
+      rsetLoader(false)
       window.location.reload()
       // Assuming the response indicates a successful update
       // You can handle the response as needed (e.g., show a success message)
@@ -237,8 +243,15 @@ window.location.reload()
               <td>
                 {/* {request.status === 'pending' && (  */}
                   <>
-                    <button className='accept-btn' onClick={() => handleAccept(request)}>Accept</button>
-                    <button className='reject-btn' onClick={() => handleReject(request)}>Reject</button>
+                  
+
+                    <button className='accept-btn' onClick={() => handleAccept(request)}>
+                {aloader? "Accepting" :'Accept'}
+              
+                    </button>
+                    <button className='reject-btn' onClick={() => handleReject(request)}>
+                      {rloader? "Rejecting" :'Reject'}
+                      </button>
                     {/* <button className='view-btn'><Link style={{textDecoration:'none'}} to="/StudentDetailSTAFF">View</Link></button> */}
                   </>
                 {/* )}  */}

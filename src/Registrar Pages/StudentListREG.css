@@ -40,13 +40,14 @@
   display: flex;
 }
 
-.abebe-kebede {
+.abebe-kebedeREG {
   text-transform: uppercase;
   margin-bottom: 19px;
   font-weight: 600;
+  font-size: 24px
 }
 
-.librarian {
+.librarianREG {
   text-transform: uppercase;
   margin-top: 1px;
 }

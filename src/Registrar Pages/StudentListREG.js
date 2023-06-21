@@ -47,8 +47,8 @@ const departmentName = useRef()
          <div className="landing-page1"> 
       <div className="rectangle-1">
         <div className="rectangle-2">
-          <span className="abebe-kebede">{userName}</span>
-          <span className="librarian">Registrar</span>
+          <span className="abebe-kebedeREG">{userName}</span>
+          <span className="librarianREG">Registrar</span>
         </div>
         <div className="flex-container">
           <img className="material-symbolshome" src={materialSymbolshome} alt=""/>
@@ -74,6 +74,8 @@ const departmentName = useRef()
           <img className="majesticonslogout" src={majesticonslogout} alt=""/>
           <span className="logout"  onClick={()=>{
             localStorage.removeItem('registrarData')
+            localStorage.removeItem('e.students')
+            localStorage.removeItem('deptData')
            navigate("/SignInST")
           }} ><span  style={{textDecoration:'none', color:'white'}}>Logout</span></span>
           {/* <span className="logout"><Link to="/SignInST" style={{textDecoration:'none', color:'white'}}>Logout</Link></span> */}

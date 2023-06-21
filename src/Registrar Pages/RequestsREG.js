@@ -209,8 +209,8 @@ const handleReject = async (request) => {
          <div className="landing-page1"> 
       <div className="rectangle-1">
         <div className="rectangle-2">
-          <span className="abebe-kebede">{userName}</span>
-          <span className="librarian">Registrar</span>
+          <span className="abebe-kebedeREG">{userName}</span>
+          <span className="librarianREG">Registrar</span>
         </div>
         <div className="flex-container">
           <img className="material-symbolshome" src={materialSymbolshome} alt=""/>

@@ -21,6 +21,34 @@ export default function Home() {
 
   const [pRequests, setPrequests] = useState([]);
 
+const [departmentName,setDepartmentName]=useState('')
+
+  useEffect(() => {
+    const fetchDepartmentName = async () => {
+      const userData= localStorage.getItem("registrarData")
+      const parsedData=JSON.parse(userData)
+      const deptId= parsedData.data[0].departmentid
+  
+     
+        axios.post("https://aau-scs-service.onrender.com/fetchDepartment",{ departmentID: deptId})
+        .then(res=>{
+            localStorage.setItem("deptData",JSON.stringify(res.data))
+  console.log('dapartment name stored successfully')
+        //  deptName = res.data.departmentid;
+        // setDeptName(deptName);
+        // window.reload();
+        console.log(res.data.data[0].departmentname)
+        setDepartmentName(res.data.data[0].departmentname)
+        }).catch(err=>{
+        console.log(err)
+       
+    })
+    };
+    
+    fetchDepartmentName();
+  }, []);
+
+
   useEffect(() => {
     const fetchNoOfRequests = async () => {
       // const officeID = localStorage.getItem('officeid'); // Retrieving 'userType' from local storage
@@ -30,7 +58,7 @@ export default function Home() {
       if(parsedData.loggedIn===1){
       try {
         const response = await axios.post('https://aau-scs-service.onrender.com/numberOfPendingRequestsToRegistrar', {
-          departmentName: "Inforamtion Systems"
+          departmentName: departmentName
         });
 // console.log(parsedData.data[0].officeid)
         // Assuming the response data is an array of student clearance requests
@@ -57,12 +85,13 @@ export default function Home() {
       if(parsedData.loggedIn===1){
       try {
         const response = await axios.post('https://aau-scs-service.onrender.com/numberOfApprovedRequestsToRegistrar', {
-          departmentName: "Inforamtion Systems"        });
+          departmentName: departmentName       });
 // console.log(parsedData.data[0].officeid)
         // Assuming the response data is an array of student clearance requests
         const aRequests = response.data.data;
 
         setArequests(aRequests);
+        console.log(response.data.data)
       } catch (error) {
         // Handle any errors that occur during the API request
         console.error('Error fetching student clearance requests:', error);
@@ -77,8 +106,8 @@ export default function Home() {
         <div className="landing-page1"> 
       <div className="rectangle-1">
         <div className="rectangle-2">
-          <span className="abebe-kebede">{userName}</span>
-          <span className="librarian">Registrar</span>
+          <span className="abebe-kebedeREG" >{userName}</span>
+          <span className="librarianREG" >Registrar</span>
         </div>
         <div className="flex-container">
           <img className="material-symbolshome" src={materialSymbolshome} alt=""/>
@@ -105,6 +134,8 @@ export default function Home() {
           {/* <span className="logout"><Link to="/SignInST" style={{textDecoration:'none', color:'white'}}>Logout</Link></span> */}
           <span className="logout"  onClick={()=>{
             localStorage.removeItem('registrarData')
+            localStorage.removeItem('e.students')
+            localStorage.removeItem('deptData')
            navigate("/SignInST")
           }} ><span  style={{textDecoration:'none', color:'white'}}>Logout</span></span>
         </div>
