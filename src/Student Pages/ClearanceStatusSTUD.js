@@ -160,7 +160,8 @@ console.log(response.data.data)
 </table>
 
      </div>
-<div style={{width:"60.5%", display:'flex',flexDirection:'row',justifyContent:'end'}}>
+<div classsName="buttonbox" style={ {width:" 50.5%; ",display: 'flex;',
+    flexDirection: "row;", justifyContent: "end;"}}>
   <Link to="/RequestClearanceSTUD" style={{textDecoration:'none'}}>
     <input type="button" value="Request Clearance" className="rc-btn1STUD"/>
     </Link></div>

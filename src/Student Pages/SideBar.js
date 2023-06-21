@@ -3,6 +3,7 @@ import {Link} from "react-router-dom"
 import { slide as Menu } from 'react-burger-menu';
 import materialsymbolshomeoutlinerounded from "../assets/materialsymbolshomeoutlinerounded.png"
 import Vector1 from "../assets/Vector1.png"
+import icbaselineNoteAlt1 from "../assets2/icbaselineNoteAlt1.svg";
 import materialsymbolshelp from "../assets/materialsymbolshelp.png"
 import uil_signout from "../assets/uil_signout.png"
 import './SideBar.css';
