@@ -21,7 +21,7 @@ export default function Home() {
 
   const [pRequests, setPrequests] = useState([]);
 
-const [departmentName,setDepartmentName]=useState('')
+// const [depName,setDepartmentName]=useState([])
 
   useEffect(() => {
     const fetchDepartmentName = async () => {
@@ -32,13 +32,14 @@ const [departmentName,setDepartmentName]=useState('')
      
         axios.post("https://aau-scs-service.onrender.com/fetchDepartment",{ departmentID: deptId})
         .then(res=>{
-            localStorage.setItem("deptData",JSON.stringify(res.data))
-  console.log('dapartment name stored successfully')
+            localStorage.setItem("deptData2",JSON.stringify(res.data))
+  console.log('dapartment data stored successfully in deptData2')
         //  deptName = res.data.departmentid;
         // setDeptName(deptName);
         // window.reload();
         console.log(res.data.data[0].departmentname)
-        setDepartmentName(res.data.data[0].departmentname)
+        // setDepartmentName(res.data.data[0].departmentname)
+        // console.log(depName)
         }).catch(err=>{
         console.log(err)
        
@@ -52,24 +53,25 @@ const [departmentName,setDepartmentName]=useState('')
   useEffect(() => {
     const fetchNoOfRequests = async () => {
       // const officeID = localStorage.getItem('officeid'); // Retrieving 'userType' from local storage
-      const userData= localStorage.getItem("registrarData")
-      const parsedData=JSON.parse(userData)
-
-      if(parsedData.loggedIn===1){
+      const userData3= localStorage.getItem("deptData2")
+      const parsedData1=JSON.parse(userData3)
+console.log(parsedData1.data[0].departmentname)
+      
       try {
         const response = await axios.post('https://aau-scs-service.onrender.com/numberOfPendingRequestsToRegistrar', {
-          departmentName: departmentName
+          departmentName: parsedData1.data[0].departmentname
         });
 // console.log(parsedData.data[0].officeid)
         // Assuming the response data is an array of student clearance requests
-        const pRequests = response.data.data;
+        // const pRequests = response.data.data;
 
-        setPrequests(pRequests);
+        setPrequests(response.data.data);
+        console.log(response.data.data)
       } catch (error) {
         // Handle any errors that occur during the API request
         console.error('Error fetching student clearance requests:', error);
       }
-    };
+    
     }
     fetchNoOfRequests();
   }, []);
@@ -79,24 +81,25 @@ const [departmentName,setDepartmentName]=useState('')
   useEffect(() => {
     const fetchNoOfAcceptedRequests = async () => {
       // const officeID = localStorage.getItem('officeid'); // Retrieving 'userType' from local storage
-      const userData= localStorage.getItem("registrarData")
-      const parsedData=JSON.parse(userData)
-
-      if(parsedData.loggedIn===1){
+      const userData2= localStorage.getItem("deptData2")
+      const parsedData2=JSON.parse(userData2)
+console.log(parsedData2.data[0].departmentname
+  )
+     
       try {
         const response = await axios.post('https://aau-scs-service.onrender.com/numberOfApprovedRequestsToRegistrar', {
-          departmentName: departmentName       });
+          departmentName: parsedData2.data[0].departmentname
+            });
 // console.log(parsedData.data[0].officeid)
         // Assuming the response data is an array of student clearance requests
-        const aRequests = response.data.data;
+        //  aRequests = response.data.data;
 
-        setArequests(aRequests);
-        console.log(response.data.data)
+        setArequests(response.data.data);
       } catch (error) {
         // Handle any errors that occur during the API request
         console.error('Error fetching student clearance requests:', error);
       }
-    };
+   
     }
     fetchNoOfAcceptedRequests();
   }, []);
@@ -137,7 +140,7 @@ const [departmentName,setDepartmentName]=useState('')
             localStorage.removeItem('e.students')
             localStorage.removeItem('deptData')
            navigate("/SignInST")
-          }} ><span  style={{textDecoration:'none', color:'white'}}>Logout</span></span>
+          }} ><span  style={{textDecoration:'none', color:'white',cursor:'pointer'}}>Logout</span></span>
         </div>
       </div>
       <div className="flex-container-6">

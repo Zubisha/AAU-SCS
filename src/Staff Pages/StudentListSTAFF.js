@@ -131,7 +131,7 @@ const userData = localStorage.getItem('staffData')
           <span className="logout"  onClick={()=>{
             localStorage.removeItem('staffData')
            navigate("/SignInST")
-          }} ><span  style={{textDecoration:'none', color:'white'}}>Logout</span></span>
+          }} ><span  style={{textDecoration:'none', color:'white',cursor:'pointer'}}>Logout</span></span>
           {/* <span className="logout"><Link to="/SignInST" style={{textDecoration:'none', color:'white'}}>Logout</Link></span> */}
         </div>
       </div>
@@ -149,17 +149,30 @@ const userData = localStorage.getItem('staffData')
       <div className="SLTStaff">
             <div className="labels1">
                 <span id="2" >School/Department</span>
-                <input id="2" type="text" className="input-box1"
+                {/* <input id="2" type="text" className="input-box1"
                 ref={departmentName}
-                  />
+                  /> */}
+                  <select id="2" className="input-box1" ref={departmentName}>
+                    <option value="Information Systems">Information Systems</option>
+                    <option value="Economics">Economics</option>
+                    <option value="PADM">PADM</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Management">Management</option>
+                  </select>
                 <span id="2" >Year</span>
-                <input id="2" type="text" className="input-box1"
-             ref={academicYear}/>
-                <input type="button" value="Generate" className="rc-btn4"
+                {/* <input id="2" type="text" className="input-box1"
+             ref={academicYear}/> */}
+              <select className="input-box1" id="2"  ref={academicYear}>
+    <option value="2018/2019">2018/2019</option>
+    <option value="2019/2020">2019/2020</option>
+    <option value="2020/2021">2020/2021</option>
+
+</select>
+                <input type="button" value="Generate" className="rc-btn4" 
                 onClick={search}
                 />
                
-                
+              
             </div> </div>
          
        <div className="status-table5"> 

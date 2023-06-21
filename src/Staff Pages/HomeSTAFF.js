@@ -133,7 +133,7 @@ console.log(parsedData.data[0].officeid)
           <span className="logout"  onClick={()=>{
             localStorage.removeItem('staffData')
            navigate("/SignInST")
-          }} ><span  style={{textDecoration:'none', color:'white'}}>Logout</span></span>
+          }} ><span  style={{textDecoration:'none', color:'white',cursor:'pointer'}}>Logout</span></span>
         </div>
       </div>
       <div className="flex-container-6">

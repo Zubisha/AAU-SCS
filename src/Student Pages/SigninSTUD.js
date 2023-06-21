@@ -8,6 +8,7 @@ export default function SigninSTUD(){
     const navigate=useNavigate()
     const [userId,setUserId]=useState('')
     const [password,setPassword]=useState('')
+    const [loading,isLoading]=useState(false)
     useEffect(()=>{
         const userData= localStorage.getItem("studentData")
         const parsedData=JSON.parse(userData)
@@ -29,6 +30,7 @@ export default function SigninSTUD(){
      
      },[])
      const login=()=>{
+        isLoading(true)
          axios.post("https://aau-scs-service.onrender.com/studentLogin",{studentID:userId,password})
          .then(res=>{
              localStorage.setItem("studentData",JSON.stringify(res.data))
@@ -45,8 +47,10 @@ export default function SigninSTUD(){
             if(parsedData.loggedIn===1){
              
                navigate('/HomeSTUD')
-               }
+               isLoading(false)
+               } 
                else{
+                isLoading(false)
                    window.alert('Incorrect Username or Password')
                }
         }
@@ -54,6 +58,7 @@ export default function SigninSTUD(){
 
          }).catch(err=>{
              console.log(err)
+             isLoading(false)
              window.alert('Could not log you in try again later')
          })
      }
@@ -70,7 +75,7 @@ export default function SigninSTUD(){
              <input type="password" className="password-input-fieldSTUD" value={password} onChange={(e)=>{
             setPassword(e.target.value)
              }}/>  
-             <button className="sign-in-btnSTUD" onClick={login}>Signin
+             <button className="sign-in-btnSTUD" onClick={login}>{loading?'Signing in...':'Signin'}
                 {/* <Link to="/HomeSTUD" style={{color:'white'}}></Link> */}
                 </button>   
              {/* <input type="button" className="sign-in-btn" value="Signin"/>    */}

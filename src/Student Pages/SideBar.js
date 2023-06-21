@@ -22,7 +22,7 @@ export default props => {
           <span onClick={()=>{
             localStorage.removeItem('studentData')
            navigate("/SigninSTUD")
-          }}  id="p" style={{textDecoration:'none',color:'white',fontWeight:'bold'}}>Signout</span></span></div>
+          }}  id="p" style={{textDecoration:'none',color:'white',fontWeight:'bold',cursor:'pointer'}}>Signout</span></span></div>
       </div>
     </Menu>
   );

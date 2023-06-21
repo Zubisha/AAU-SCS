@@ -9,7 +9,7 @@ export default function SigninST(){
     const navigate=useNavigate()
     const [userId,setUserId]=useState('')
     const [password,setPassword]=useState('')
-
+const[loading,isLoading]=useState(false)
     // useEffect(()=>{
     //    const userData= localStorage.getItem("staffData")
     //    const parsedData=JSON.parse(userData)
@@ -85,7 +85,7 @@ export default function SigninST(){
   const registrarFunction = () => {
 
    
-
+isLoading(true)
     axios.post("https://aau-scs-service.onrender.com/registrarLogin",{staffID:userId,password})
     .then(res=>{
         localStorage.setItem("registrarData",JSON.stringify(res.data))
@@ -95,13 +95,16 @@ export default function SigninST(){
       const parsedData=JSON.parse(regData)
    if(parsedData){
        if(parsedData.loggedIn===1){
+        isLoading(false)
            navigate("/HomeREG")
           } else{
+            isLoading(false)
             window.alert('Incorrect Username or Password')
           }
     }
         }).catch(err=>{
         console.log(err)
+        isLoading(false)
         window.alert('Incorrect Username or Password')
     })
     console.log('Registrar function executed!');
@@ -110,6 +113,7 @@ export default function SigninST(){
   const staffFunction = () => {
 
    
+    isLoading(true)
 
     axios.post("https://aau-scs-service.onrender.com/staffLogin",{staffID:userId,password})
         .then(res=>{
@@ -121,13 +125,16 @@ export default function SigninST(){
      if(parsedData){
          if(parsedData.loggedIn===1){
              navigate("/HomeSTAFF")
+             isLoading(false)
             }
-            else{
+            else{      
+                isLoading(false)
               window.alert('Incorrect Username or Password')
             }
       }
            console.log('Staff function executed!');
             }).catch(err=>{
+              isLoading(false)
             console.log(err)
         window.alert('Incorrect Username or Password')
         })
@@ -168,7 +175,7 @@ export default function SigninST(){
         />
        <strong>Staff</strong> 
       </label></div> </div> 
-           <button className="sign-in-btn" onClick={handleSubmit}>Signin </button>
+           <button className="sign-in-btn" onClick={handleSubmit}>{loading?'Signing in...':'Signin'} </button>
              <span className="forgot-password">Forgot your password?</span>
            </div>
                <img className="background-pattern" src={backgroundPattern} alt=""/>

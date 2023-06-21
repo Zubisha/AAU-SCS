@@ -334,7 +334,7 @@ width: 100%;
   margin: 12px;
   height:30px;
   width: 220px;
-  font-size: 22px;
+  font-size: 18px;
 }
 .desc{
   padding: 5px;
@@ -359,6 +359,7 @@ width: 100%;
   font-weight: bold;
   line-height: 18px;
   display: flex;
+  cursor: pointer;
 }
 
 .status-table5{

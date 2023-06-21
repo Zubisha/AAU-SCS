@@ -239,7 +239,7 @@ const handleReject = async (request) => {
             localStorage.removeItem('e.students')
             localStorage.removeItem('deptData')
            navigate("/SignInST")
-          }} ><span  style={{textDecoration:'none', color:'white'}}>Logout</span></span>
+          }} ><span  style={{textDecoration:'none', color:'white',cursor:'pointer'}}>Logout</span></span>
           {/* <span className="logout"><Link to="/SignInST" style={{textDecoration:'none', color:'white'}}>Logout</Link></span> */}
         </div>
       </div>
